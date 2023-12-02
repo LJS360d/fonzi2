@@ -1,25 +1,20 @@
-import { error, info } from '../../../log/logging';
+import { Logger } from '../../../log/logger';
 import { DiscordEventsHandler } from '../base.handler';
 import { CommandInteractionsHandler } from '../commands/commands.handler';
-import { ClientEvent } from './client.event.decorator';
+import { ClientEvent } from '../../decorators/client.event.decorator';
 
 export class ClientEventsHandler extends DiscordEventsHandler {
 	@ClientEvent('ready')
 	async onReady() {
 		// * Successful login
-		info(`Logged in as ${this.client?.user?.tag}!`);
+		Logger.info(`Logged in as ${this.client?.user?.tag}!`);
 
 		try {
-			info('Started refreshing application (/) commands.');
+			Logger.info('Started refreshing application (/) commands.');
 			await this.client?.application?.commands.set(CommandInteractionsHandler.commands);
-			info('Successfully reloaded application (/) commands.');
+			Logger.info('Successfully reloaded application (/) commands.');
 		} catch (err: any) {
-			error(err);
+			Logger.error(err);
 		}
-	}
-
-	@ClientEvent('messageCreate')
-	async onMessageCreate() {
-		console.log('palle');
 	}
 }

@@ -1,29 +1,47 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true,
-    "composite": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-  },
-  "ts-node": {
-    "esm": true,
-    "compilerOptions": {
-      "module": "nodenext",
-    }
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"allowImportingTsExtensions": true,
+		"emitDeclarationOnly": true,
+		"composite": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "./dist",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"baseUrl": "./src",
+		// Additional Options:
+		"lib": ["ESNext", "DOM"], // Adjust the list based on your project's needs
+
+		// Best Practice Recommendations:
+		"noImplicitAny": false, // Consider turning on to catch implicit any types
+		"strictNullChecks": true, // Enforce null checks for strict typing
+		"strictFunctionTypes": true, // Ensure function types are strictly checked
+		"strictPropertyInitialization": true, // Require initialization of all class properties
+		"noUnusedLocals": false, // Flag unused local variables
+		"noUnusedParameters": false, // Flag unused parameters
+		"noImplicitReturns": true, // Ensure all code paths return a value
+		"noFallthroughCasesInSwitch": true, // Flag fallthrough cases in switch statements
+		"noUncheckedIndexedAccess": true, // Include safer checks for indexing into arrays
+		"exactOptionalPropertyTypes": true, // Treat optional property types as exact
+
+		// Advanced Options:
+		"isolatedModules": true, // Enables faster builds in some scenarios
+		"noEmit": false, // Use for type-checking only without emitting JavaScript
+		"declaration": true, // Generate declaration files (.d.ts)
+		"declarationMap": true, // Generate sourcemaps for declaration files
+		"sourceMap": true // Generate sourcemaps for JavaScript files
+	},
+	"ts-node": {
+		"esm": true,
+		"compilerOptions": {
+			"module": "nodenext"
+		}
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"]
 }

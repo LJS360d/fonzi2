@@ -1,6 +1,5 @@
-import { Client } from "discord.js";
+import { Client } from 'discord.js';
 
 export abstract class DiscordEventsHandler {
-  public client?: Client;
-
+	public client?: Client;
 }
