@@ -12,9 +12,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"outDir": "./dist",
 		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"baseUrl": "./src",
-		// Additional Options:
+		"experimentalDecorators": true,		// Additional Options:
 		"lib": ["ESNext", "DOM"], // Adjust the list based on your project's needs
 
 		// Best Practice Recommendations:

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fonzi2 Dashboard</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+  <span id="version">Version: <b>
+      <%= version %>
+    </b></span>
+  <h1><img class="guild-icon" src="<%=client.user.avatarURL()%>">
+    <%= client.user.tag%>
+  </h1>
+  <hr><br>
+  <span>Uptime: <b id="uptime" start=<%=startTime%>></b></span>
+  <br>
+  <span>Currently part of <%=guilds.size%> guilds</span>
+  <ul>
+    <% guilds.forEach((guild)=> { %>
+      <li>
+          <div class="guild-wrapper">
+            <span><%= guild.name %></span>
+            <img class="guild-icon" src="<%=guild.iconURL()%>">
+            <span>
+              <%= guild.memberCount%> members
+            </span>
+          </div>
+      </li>
+      <% }); %>
+  </ul>
+
+  <!-- script -->
+  <script type="text/javascript">
+    updateUptime()
+    setInterval(updateUptime, 1000)
+    function updateUptime() {
+      const uptimeElem = document.getElementById('uptime');
+      uptimeElem.textContent = formatTime(Date.now() - Number(uptimeElem.getAttribute('start')))
+    }
+    function formatTime(milliseconds) {
+      const units = [
+        { label: 'y', divisor: 1000 * 60 * 60 * 24 * 30 * 12 },
+        { label: 'm', divisor: 1000 * 60 * 60 * 24 * 30 },
+        { label: 'd', divisor: 1000 * 60 * 60 * 24 },
+        { label: 'h', divisor: 1000 * 60 * 60 },
+        { label: 'm', divisor: 1000 * 60 },
+        { label: 's', divisor: 1000 }
+      ];
+
+      let output = '';
+      for (const unit of units) {
+        const value = Math.floor(milliseconds / unit.divisor);
+        if (value > 0 || output !== '') {
+          output += `${value.toString().padStart(2, '0')}${unit.label} `;
+          milliseconds %= unit.divisor;
+        }
+      }
+
+      return output.trim();
+    }
+
+  </script>
+</body>
+
+</html>
