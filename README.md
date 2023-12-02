@@ -23,7 +23,9 @@ A friendly reminder to never ask about Fonzi1.
 ## Features
 
 - Structured bot architecture
-- Automatic command registration
+- SSR with express-session features
+- OAuth2 with Discord to access the serverside
+- Automatic command (/) registration
 - Event handling for common Discord.js events
 - TypeScript support
 
@@ -54,14 +56,21 @@ pnpm install
 
 3. Generate the bot invite url under OAuth2 -> URL Generator, select at least the `bot` scope and the `permissions` you need for your bot
 
-4. use the generated `invite link` to invite the bot to a server you can use for testing
+4. Use the generated `invite link` to invite the bot to a server you can use for testing
 
 5. Create a `.env` file in the project root with the following properties
 
    ```bash
    TOKEN=your-bot-token
    LOG_WEBHOOK=optional-webhook-url
+
+   #OAuth2
+   OAUTH2_URL=
+   OWNER_IDS=
    ```
+   - The `OAUTH2_URL` is generated in the "OAuth2 URL Generator" in the discord developer portal
+   ### ! **IMPORTANT**
+   - Select at least the `identify` scope and change the `response_type` in the url params from "code" to "token"
 
 6. In the `src\client\options.ts` file select the intents your bot needs.
    - It is recommended to **Only** select the necessary ones, this also applies for the invite link creation
@@ -145,7 +154,7 @@ By far the simplest way to host a Discord bot for **free**, this approach is exc
    - Click on "Import from GitHub" and select your bot repository.
 2. **Setup secrets**
    - Instead of creating a `.env` file, on replit, you have to specify your environment variables in the **Secrets** tool
-   - Just like with the `.env` you will need a `TOKEN` and a `LOG_WEBHOOK` secrets
+   - Just like with the `.env` you will need a `TOKEN` and a `LOG_WEBHOOK` secrets for the bot to work and the OAuth2 Secrets for the serverside dashboard
 3. Start the Bot
    - Click on the "Start" button in the toolbar
 4. Keep the Repl Alive:
