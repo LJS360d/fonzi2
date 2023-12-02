@@ -14,7 +14,7 @@ export class ClientEventsHandler extends DiscordEventsHandler {
 			Logger.info('Started refreshing application (/) commands.');
 			await this.client?.application?.commands.set(CommandInteractionsHandler.commands);
 			Logger.info('Successfully reloaded application (/) commands.');
-      new Fonzi2Server(this.client!).start();
+			new Fonzi2Server(this.client!).start();
 		} catch (err: any) {
 			Logger.error(err);
 		}

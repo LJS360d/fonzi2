@@ -62,8 +62,9 @@ pnpm install
    TOKEN=your-bot-token
    LOG_WEBHOOK=optional-webhook-url
    ```
+
 6. In the `src\client\options.ts` file select the intents your bot needs.
-    - It is recommended to **Only** select the necessary ones, this also applies for the invite link creation
+   - It is recommended to **Only** select the necessary ones, this also applies for the invite link creation
 7. Run the bot in development mode:
    ```bash
    npm run dev

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { EmbedBuilder } from 'discord.js';
 import { env } from '../main';
 // ConsoleColors
-enum CC {
+export enum CC {
 	stop = '\x1b[0m',
 	bold = '\x1b[1m',
 	italic = '\x1b[3m',
@@ -30,7 +30,7 @@ enum CC {
 	whitebg = '\x1b[47m',
 }
 // DiscordColors
-enum DC {
+export enum DC {
 	black = 2303786,
 	gray = 9807270,
 	red = 15548997,
