@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { EmbedBuilder } from 'discord.js';
-import { env } from '../main';
+import { env } from './env';
 // ConsoleColors
 export enum CC {
 	stop = '\x1b[0m',

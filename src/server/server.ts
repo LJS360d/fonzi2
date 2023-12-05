@@ -1,11 +1,13 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Client } from 'discord.js';
 import express, { NextFunction, type Request, type Response } from 'express';
-import session from 'express-session';
+import session from 'cookie-session';
 import http from 'http';
-import { CC, Logger } from '../log/logger';
-import { env } from '../main';
+import { env } from '../lib/env';
+import { CC, Logger } from '../lib/logger';
+import { DiscordUserInfo } from '../types/discord.user.info';
 export class Fonzi2Server {
+	private readonly startTime = Date.now();
 	private port: number = env.PORT;
 	private app: express.Application;
 	private httpServer: http.Server;
@@ -26,11 +28,11 @@ export class Fonzi2Server {
 
 	start() {
 		this.httpServer.listen(this.port, () => {
-			Logger.info(
-				env.NODE_ENV === 'development'
-					? `Server listening on ${CC.doubleUnderline}http://localhost:${env.PORT}`
-					: `Server open on port ${env.PORT}`
-			);
+			if (env.NODE_ENV === 'development') {
+				Logger.info(
+					`Server listening on ${CC.doubleUnderline}http://localhost:${env.PORT}`
+				);
+			} else Logger.info(`Server open on port ${env.PORT}`);
 		});
 		this.app.get('/', this.authorize.bind(this));
 		this.app.get('/unauthorized', this.unauthorized.bind(this));
@@ -41,66 +43,86 @@ export class Fonzi2Server {
 
 		this.app.use(this.notFoundMiddleware.bind(this));
 
-		// shutdown Hooks
-		['SIGINT', 'SIGTERM'].forEach((signal) => {
-			process.on(signal, this.stop.bind(this));
+		process.on('SIGTERM', () => {
+			this.stop();
 		});
 	}
 
-	dashboard(req: Request, res: Response) {
-		if (!req.session['accessToken']) {
+	stop() {
+		this.httpServer.close();
+	}
+
+	protected dashboard(req: Request, res: Response) {
+		const userInfo = req.session['userInfo'];
+		if (!userInfo) {
 			res.redirect('/unauthorized');
 			return;
 		}
 		const props = {
 			client: this.client,
 			guilds: this.client.guilds.cache,
-			startTime: Date.now(),
+			startTime: this.startTime,
 			version: env.VERSION,
+			userInfo,
 		};
-		res.render('dashboard', props);
+		res.render('default/dashboard', props);
 	}
 
-	authorize(req: Request, res: Response) {
-		res.redirect(env.OAUTH2_URL);
+	protected authorize(req: Request, res: Response) {
+		const userInfo = req.session['userInfo'];
+		if (!userInfo) {
+			res.redirect(env.OAUTH2_URL);
+			return;
+		}
+		res.redirect('/dashboard');
 	}
 
-	login(req: Request, res: Response) {
-		res.render('login');
+	protected login(req: Request, res: Response) {
+		res.render('default/login');
 	}
 
-	unauthorized(req: Request, res: Response) {
-		res.render('unauthorized');
+	protected unauthorized(req: Request, res: Response) {
+		res.render('default/unauthorized');
 	}
 
-	notFound(req: Request, res: Response) {
-		res.render('notfound');
+	protected notFound(req: Request, res: Response) {
+		res.render('default/notfound');
 	}
 
-	notFoundMiddleware(req: Request, res: Response, next: NextFunction) {
+	protected notFoundMiddleware(req: Request, res: Response, next: NextFunction) {
 		res.redirect('/notfound');
 		next();
 	}
 
-	async loginPost(req: Request, res: Response) {
+	private async loginPost(req: Request, res: Response) {
 		const { accessToken } = req.body;
 		try {
-			const authResponse = await axios.get('https://discord.com/api/v10/users/@me', {
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			});
-			if (env.OWNER_IDS.includes(authResponse.data.id)) {
-				// TODO session store the access token
-				req.session['accessToken'] = accessToken;
+			const userInfo = await this.getDiscordAuthUserInfo(accessToken);
+			if (env.OWNER_IDS.includes(userInfo.id)) {
+				req.session['userInfo'] = userInfo;
 				res.status(302).json({ route: '/dashboard' });
 			} else res.status(401).json({ route: '/unauthorized' });
 		} catch (error: any) {
-			res.status(500).json(error);
+			res.status(502).json({ msg: error.message });
 		}
 	}
 
-	stop() {
-		this.httpServer.close();
+	private async getDiscordAuthUserInfo(accessToken: string): Promise<DiscordUserInfo> {
+		try {
+			const authResponse: AxiosResponse<DiscordUserInfo, any> = await axios.get(
+				'https://discord.com/api/v10/users/@me',
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+			const userId = authResponse.data.id;
+			const userAvatarHash = authResponse.data.avatar;
+			authResponse.data.avatar = `https://cdn.discordapp.com/avatars/${userId}/${userAvatarHash}.png`;
+			return authResponse.data;
+		} catch (error: any) {
+			throw error;
+		}
 	}
 }
