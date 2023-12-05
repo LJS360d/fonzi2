@@ -1,5 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs }: {
   deps = [
-    (pkgs.nodejs-18_x.override { npm = pkgs.nodePackages.npm_9; })
+    pkgs.nodejs-18_x
   ];
 }

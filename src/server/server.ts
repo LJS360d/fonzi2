@@ -16,13 +16,9 @@ export class Fonzi2Server {
 		this.httpServer = http.createServer(this.app);
 		this.app.use(express.static('public'));
 		this.app.use(express.json());
-		this.app.use(
-			session({
-				secret: 'boo',
-				resave: false,
-				saveUninitialized: false,
-			})
-		);
+		this.app.use(session({
+      secret: env.OWNER_IDS.join('')
+    }));
 		this.app.set('view engine', 'ejs');
 	}
 
