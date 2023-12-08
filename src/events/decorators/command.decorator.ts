@@ -1,26 +1,34 @@
 import 'reflect-metadata';
-import { ApplicationCommandDataResolvable } from 'discord.js';
+import { ApplicationCommandData } from 'discord.js';
+import { Handler } from '../handlers/base.handler';
 
-export const commandMetadataKey = Symbol('commandMetadata');
-export const commandObjectsKey = Symbol('commandObjects');
+type CommandInteractionMetadata = {
+	method: Function;
+	command: ApplicationCommandData;
+};
+const commandMetadataKey = Symbol('commandsMetadata');
 
-type CommandsMetadata = { name: string; method: Function }[];
-export function getCommandsMetadata(target: any): CommandsMetadata {
+export function getRegisteredCommands(): ApplicationCommandData[] {
+	return Reflect.getOwnMetadata(commandMetadataKey, global) || [];
+}
+
+export function getCommandsMetadata(target: any): CommandInteractionMetadata[] {
 	return Reflect.getOwnMetadata(commandMetadataKey, Object.getPrototypeOf(target)) || [];
 }
 
-export function Command(command: ApplicationCommandDataResolvable): MethodDecorator {
-	return (target: any, key: string | symbol, descriptor: PropertyDescriptor) => {
-		// ? classic "name,method" tuple
-		const commandMetadata: CommandsMetadata =
-			Reflect.getOwnMetadata(commandMetadataKey, target) || [];
-		commandMetadata.push({ name: (command as any).name, method: descriptor.value });
+// ? @Command decorator
+export function Command(command: ApplicationCommandData): MethodDecorator {
+	return (
+		target: Handler,
+		key: string | symbol,
+		descriptor: PropertyDescriptor
+	) => {
+		const method: Function = descriptor.value;
+		const commandMetadata = getCommandsMetadata(target);
+		commandMetadata.push({ method, command });
+		const commands = getRegisteredCommands();
+		commands.push(command);
 		Reflect.defineMetadata(commandMetadataKey, commandMetadata, target);
-
-		// ? array of commands data for declaration
-		const commandObjects: ApplicationCommandDataResolvable[] =
-			Reflect.getOwnMetadata(commandObjectsKey, target) || [];
-		commandObjects.push(command);
-		Reflect.defineMetadata(commandObjectsKey, commandObjects, target);
+		Reflect.defineMetadata(commandMetadataKey, commands, global);
 	};
 }

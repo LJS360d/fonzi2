@@ -1,10 +1,14 @@
 import { Logger } from '../../../lib/logger';
-import { DiscordEventsHandler } from '../../../types/handlers/base.handler';
+import { Handler, HandlersType } from '../base.handler';
 import { ClientEvent } from '../../decorators/client.event.decorator';
 import { Fonzi2Server } from '../../../server/server';
-import { DecoratorsMetadataAccess } from '../../decorators/access';
+import { ApplicationCommandData } from 'discord.js';
 
-export class ClientEventsHandler extends DiscordEventsHandler {
+export class ClientEventsHandler extends Handler {
+	public type = HandlersType.clientEvent;
+	constructor(private commands: ApplicationCommandData[]) {
+		super();
+	}
 	@ClientEvent('ready')
 	async onReady() {
 		// * Successful login
@@ -12,7 +16,7 @@ export class ClientEventsHandler extends DiscordEventsHandler {
 
 		try {
 			Logger.info('Started refreshing application (/) commands.');
-			await this.client?.application?.commands.set(DecoratorsMetadataAccess.commands);
+			await this.client?.application?.commands.set(this.commands);
 			Logger.info('Successfully reloaded application (/) commands.');
 			new Fonzi2Server(this.client!).start();
 		} catch (err: any) {

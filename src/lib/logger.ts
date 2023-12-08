@@ -46,15 +46,23 @@ export class Logger {
 	protected static readonly pattern = `${CC.gray}[%time]$ %color%level$ ${CC.white}%msg$`;
 	static remoteEnabled = true;
 
-	public static info(msg: string): void {
+	public static info(msg: string | object): void {
 		this.log('INFO', 'green', msg);
 	}
 
-	public static warn(msg: string): void {
+	public static trace(msg: string | object): void {
+		this.log('TRACE', 'cyan', msg);
+	}
+
+	public static debug(msg: string | object): void {
+		this.log('DEBUG', 'magenta', msg);
+	}
+
+	public static warn(msg: string | object): void {
 		this.log('WARN', 'yellow', msg);
 	}
 
-	public static error(msg: string): void {
+	public static error(msg: string | object): void {
 		this.log('ERROR', 'red', msg);
 	}
 
@@ -84,8 +92,10 @@ export class Logger {
 				isLoading = true;
 				loader = setInterval(() => process.stdout.write(`${updatePattern()}\r`), 100);
 			} else {
-				// Stop the loading animation and output a checkmark
+				// Stop the loading animation
 				clearInterval(loader);
+        i = 1;
+        updatePattern();
 				process.stdout.write(`${pattern.replace(frames.at(i - 1)!, '✓')} \n`);
 				if (this.remoteEnabled) this.remoteLog(level, 'magenta', `✓ ${msg}`);
 				isLoading = false;
@@ -93,7 +103,10 @@ export class Logger {
 		};
 	}
 
-	private static log(level: string, color: keyof typeof CC, msg: string): void {
+	private static log(level: string, color: keyof typeof CC, msg: string | object): void {
+		if (typeof msg !== 'string') {
+			msg = JSON.stringify(msg, null, 2);
+		}
 		const pattern = this.pattern
 			.replace('%time', this.now())
 			.replace('%level', level)
