@@ -9,7 +9,7 @@ export class CommandInteractionsHandler extends Handler {
 	public readonly type = HandlersType.commandInteraction;
 	@Command({ name: 'version', description: 'get the application version' })
 	async handleVersion(interaction: ChatInputCommandInteraction) {
-		await interaction.reply(env.VERSION);
+		void interaction.reply(env.VERSION);
 	}
 
 	@Command({ name: 'ping', description: 'pong' })
@@ -17,7 +17,7 @@ export class CommandInteractionsHandler extends Handler {
 		const confirm = Buttons.confirm('confirm-ping');
 		const cancel = Buttons.cancel('cancel-ping');
 
-		await interaction.reply({
+		void interaction.reply({
 			content: 'Would you like to be ponged?',
 			components: [ActionRow.actionRowData(cancel, confirm)],
 		});

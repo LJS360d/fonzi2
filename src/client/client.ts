@@ -1,9 +1,9 @@
-import { ChatInputCommandInteraction, Client, ClientOptions } from 'discord.js';
+import { Client, ClientOptions } from 'discord.js';
+import { getButtonsMetadata } from '../events/decorators/button.interaction.dec';
 import { getEventsMetadata } from '../events/decorators/client.event.dec';
 import { getCommandsMetadata } from '../events/decorators/command.interaction.dec';
-import { Logger } from '../lib/logger';
 import { Handler } from '../events/handlers/base.handler';
-import { getButtonsMetadata } from '../events/decorators/button.interaction.dec';
+import { Logger } from '../lib/logger';
 export default class Fonzi2Client extends Client {
 	constructor(options: ClientOptions, handlers: Handler[]) {
 		super(options);
@@ -46,7 +46,7 @@ export default class Fonzi2Client extends Client {
 					const match = commands.find(({ name }) => interaction.commandName === name);
 					if (match) {
 						const { method, name } = match;
-						Logger.info(
+						Logger.trace(
 							`Received command /${name} from ${interaction.user.username} in ${interaction.guild?.name}`
 						);
 						method.call(handler, interaction);
@@ -65,7 +65,7 @@ export default class Fonzi2Client extends Client {
 
 					if (match) {
 						const { method, id } = match;
-						Logger.info(
+						Logger.trace(
 							`Received button ${id} from ${interaction.user.username} in ${interaction.guild?.name}`
 						);
 						method.call(handler, interaction);

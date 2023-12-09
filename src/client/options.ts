@@ -1,6 +1,10 @@
-import { type ClientOptions, GatewayIntentBits as intents } from 'discord.js';
+import {
+  GatewayIntentBits as intents,
+  type ClientOptions
+} from 'discord.js';
 
 export const options: ClientOptions = {
+	// allowedMentions: { parse: ['users', 'roles'] },
 	intents: [
 		// intents.AutoModerationConfiguration,
 		// intents.AutoModerationExecution,
@@ -23,4 +27,17 @@ export const options: ClientOptions = {
 		intents.Guilds,
 		intents.MessageContent,
 	],
+	// closeTimeout: 0,
+	// failIfNotExists: true,
+	/* jsonTransformer: (obj) => {
+		console.log(obj);
+		return obj;
+	}, */
+	// rest: { version: '10' },
+	/* presence: {
+		activities: [{ name: 'a dumb dev', type: ActivityType.Watching }],
+		afk: false,
+		status: 'online',
+	}, */
+  
 };
