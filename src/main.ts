@@ -3,14 +3,16 @@ import { options } from './client/options';
 import {
 	getCommandsMetadata,
 	getRegisteredCommands,
-} from './events/decorators/command.decorator';
+} from './events/decorators/command.interaction.dec';
+import { ButtonInteractionHandler } from './events/handlers/buttons/buttons.handler';
 import { CommandInteractionsHandler } from './events/handlers/commands/commands.handler';
 import { ClientEventsHandler } from './events/handlers/common/client.events.handler';
-import { env } from './lib/env';
+import { env, validateEnv } from './lib/env';
 import { Logger } from './lib/logger';
-
+validateEnv();
 const client = new Fonzi2Client(options, [
 	new CommandInteractionsHandler(),
+	new ButtonInteractionHandler(),
 	new ClientEventsHandler(getRegisteredCommands()),
 ]);
 client.login(env.TOKEN);

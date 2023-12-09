@@ -1,6 +1,6 @@
 import { Logger } from '../../../lib/logger';
 import { Handler, HandlersType } from '../base.handler';
-import { ClientEvent } from '../../decorators/client.event.decorator';
+import { ClientEvent } from '../../decorators/client.event.dec';
 import { Fonzi2Server } from '../../../server/server';
 import { ApplicationCommandData } from 'discord.js';
 

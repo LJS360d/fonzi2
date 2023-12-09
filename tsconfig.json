@@ -9,11 +9,17 @@
 		"emitDecoratorMetadata": true,
     // Change these if masochist
 		"strict": false,
-		"skipLibCheck": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "alwaysStrict": false,
     // ide rules
+    "noErrorTruncation": true,
 		"forceConsistentCasingInFileNames": true,
 		"composite": true,
     // Compilation rules
+		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"isolatedModules": true, // Enables faster builds in some scenarios
 		"declaration": true, // Generate declaration files (.d.ts)

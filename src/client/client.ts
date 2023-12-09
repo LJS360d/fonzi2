@@ -1,14 +1,15 @@
 import { ChatInputCommandInteraction, Client, ClientOptions } from 'discord.js';
-import { getEventsMetadata } from '../events/decorators/client.event.decorator';
-import { getCommandsMetadata } from '../events/decorators/command.decorator';
+import { getEventsMetadata } from '../events/decorators/client.event.dec';
+import { getCommandsMetadata } from '../events/decorators/command.interaction.dec';
 import { Logger } from '../lib/logger';
 import { Handler } from '../events/handlers/base.handler';
+import { getButtonsMetadata } from '../events/decorators/button.interaction.dec';
 export default class Fonzi2Client extends Client {
 	constructor(options: ClientOptions, handlers: Handler[]) {
 		super(options);
-		const clientEventHandlers = [];
-		const commandInteractionHandlers = [];
-		const buttonInteractionHandlers = [];
+		const clientEventHandlers: Handler[] = [];
+		const commandInteractionHandlers: Handler[] = [];
+		const buttonInteractionHandlers: Handler[] = [];
 		handlers.forEach((handler) => {
 			handler.client = this;
 			switch (handler.type) {
@@ -41,16 +42,14 @@ export default class Fonzi2Client extends Client {
 		commandInteractionHandlers.forEach((handler) => {
 			this.on('interactionCreate', (interaction) => {
 				if (interaction.isChatInputCommand()) {
-					const commandsMetadata = getCommandsMetadata(handler);
-					const matchedCommand = commandsMetadata.find(
-						({ command }) => interaction.commandName === command.name
-					);
-					if (matchedCommand) {
-						const { method, command } = matchedCommand;
+					const commands = getCommandsMetadata(handler);
+					const match = commands.find(({ name }) => interaction.commandName === name);
+					if (match) {
+						const { method, name } = match;
 						Logger.info(
-							`Received command /${command.name} from ${interaction.user.username} in ${interaction.guild.name}`
+							`Received command /${name} from ${interaction.user.username} in ${interaction.guild?.name}`
 						);
-						method.call(handler, interaction as ChatInputCommandInteraction);
+						method.call(handler, interaction);
 					}
 				}
 			});
@@ -58,6 +57,21 @@ export default class Fonzi2Client extends Client {
 	}
 
 	private registerButtonInteractionsHandlers(buttonInteractionHandlers: Handler[]) {
-		// TODO implement
+		buttonInteractionHandlers.forEach((handler) => {
+			this.on('interactionCreate', (interaction) => {
+				if (interaction.isButton()) {
+					const buttons = getButtonsMetadata(handler);
+					const match = buttons.find(({ id }) => interaction.customId === id);
+
+					if (match) {
+						const { method, id } = match;
+						Logger.info(
+							`Received button ${id} from ${interaction.user.username} in ${interaction.guild?.name}`
+						);
+						method.call(handler, interaction);
+					}
+				}
+			});
+		});
 	}
 }

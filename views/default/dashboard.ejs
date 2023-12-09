@@ -14,9 +14,11 @@
     <span id="version">Version:<b>
         <%= version %>
       </b></span>
-    <h1><img class="bot-icon round" src="<%=client.user.avatarURL()%>">
-      <%= client.user.tag%>
-    </h1>
+    <a class="invite" href="<%=inviteLink%>">
+      <h1><img class="bot-icon round" src="<%=client.user.avatarURL()%>">
+        <%= client.user.tag%>
+      </h1>
+    </a>
     <!-- evil css fake error -->
     <div class="user" style="background-color: <%= userInfo.banner_color %>">
       <img class="user-icon round" src="<%=userInfo.avatar%>" alt="avatar">

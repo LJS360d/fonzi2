@@ -1,12 +1,25 @@
 import { ChatInputCommandInteraction } from 'discord.js';
+import { Buttons } from '../../../components/buttons';
 import { env } from '../../../lib/env';
+import { Command } from '../../decorators/command.interaction.dec';
 import { Handler, HandlersType } from '../base.handler';
-import { Command } from '../../decorators/command.decorator';
+import { ActionRow } from '../../../components/action-row';
 
 export class CommandInteractionsHandler extends Handler {
-  public type = HandlersType.commandInteraction;
+	public readonly type = HandlersType.commandInteraction;
 	@Command({ name: 'version', description: 'get the application version' })
 	async handleVersion(interaction: ChatInputCommandInteraction) {
 		await interaction.reply(env.VERSION);
+	}
+
+	@Command({ name: 'ping', description: 'pong' })
+	async handlePing(interaction: ChatInputCommandInteraction) {
+		const confirm = Buttons.confirm('confirm-ping');
+		const cancel = Buttons.cancel('cancel-ping');
+
+		await interaction.reply({
+			content: 'Would you like to be ponged?',
+			components: [ActionRow.actionRowData(cancel, confirm)],
+		});
 	}
 }

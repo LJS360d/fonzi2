@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
+import session from 'cookie-session';
+import crypto from 'crypto';
 import { Client } from 'discord.js';
 import express, { NextFunction, type Request, type Response } from 'express';
-import session from 'cookie-session';
 import http from 'http';
 import { env } from '../lib/env';
 import { CC, Logger } from '../lib/logger';
@@ -16,9 +17,8 @@ export class Fonzi2Server {
 		this.httpServer = http.createServer(this.app);
 		this.app.use(express.static('public'));
 		this.app.use(express.json());
-		this.app.use(session({
-      secret: env.OWNER_IDS.join('')
-    }));
+		const secret = crypto.createHash('sha3-256').update(JSON.stringify(env)).digest('hex');
+		this.app.use(session({ secret }));
 		this.app.set('view engine', 'ejs');
 	}
 
@@ -59,6 +59,7 @@ export class Fonzi2Server {
 			guilds: this.client.guilds.cache,
 			startTime: this.startTime,
 			version: env.VERSION,
+      inviteLink: env.INVITE_LINK,
 			userInfo,
 		};
 		res.render('default/dashboard', props);
@@ -94,7 +95,8 @@ export class Fonzi2Server {
 		const { accessToken } = req.body;
 		try {
 			const userInfo = await this.getDiscordAuthUserInfo(accessToken);
-			if (env.OWNER_IDS.includes(userInfo.id)) {
+			const skipAuth = env.OWNER_IDS.length === 0;
+			if (skipAuth || env.OWNER_IDS.includes(userInfo.id)) {
 				req.session['userInfo'] = userInfo;
 				res.status(302).json({ route: '/dashboard' });
 			} else res.status(401).json({ route: '/unauthorized' });

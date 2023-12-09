@@ -94,8 +94,8 @@ export class Logger {
 			} else {
 				// Stop the loading animation
 				clearInterval(loader);
-        i = 1;
-        updatePattern();
+				i = 1;
+				updatePattern();
 				process.stdout.write(`${pattern.replace(frames.at(i - 1)!, '✓')} \n`);
 				if (this.remoteEnabled) this.remoteLog(level, 'magenta', `✓ ${msg}`);
 				isLoading = false;
@@ -119,10 +119,10 @@ export class Logger {
 
 	private static remoteLog(level: string, color: keyof typeof DC, msg: string) {
 		const embed = new EmbedBuilder()
-			.setColor(DC[color] ?? DC.white)
+			.setColor(DC[color] ?? DC.white)  
 			.setDescription(this.now())
 			.addFields({
-				name: level,
+				name: `${env.NODE_ENV.charAt(0).toUpperCase() + env.NODE_ENV.slice(1)} ${level}`,
 				value: msg,
 				inline: true,
 			});
