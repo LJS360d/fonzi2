@@ -1,31 +1,35 @@
-import {
-  GatewayIntentBits as intents,
-  type ClientOptions
-} from 'discord.js';
+import { GatewayIntentBits as Intents, type ClientOptions, Partials } from 'discord.js';
 
 export const options: ClientOptions = {
 	// allowedMentions: { parse: ['users', 'roles'] },
 	intents: [
-		// intents.AutoModerationConfiguration,
-		// intents.AutoModerationExecution,
-		// intents.DirectMessageReactions,
-		intents.DirectMessageReactions,
-		intents.DirectMessageTyping,
-		intents.DirectMessages,
-		// intents.GuildEmojisAndStickers,
-		// intents.GuildIntegrations,
-		// intents.GuildInvites,
-		intents.GuildMembers,
-		intents.GuildMessageReactions,
-		intents.GuildMessageTyping,
-		intents.GuildMessages,
-		// intents.GuildModeration,
-		// intents.GuildPresences,
-		// intents.GuildScheduledEvents,
-		// intents.GuildVoiceStates,
-		// intents.GuildWebhooks,
-		intents.Guilds,
-		intents.MessageContent,
+		// Intents.AutoModerationConfiguration,
+		// Intents.AutoModerationExecution,
+		// Intents.DirectMessageReactions,
+		Intents.DirectMessageReactions,
+		Intents.DirectMessageTyping,
+		Intents.DirectMessages,
+		// Intents.GuildEmojisAndStickers,
+		// Intents.GuildIntegrations,
+		// Intents.GuildInvites,
+		Intents.GuildMembers,
+		Intents.GuildMessageReactions,
+		Intents.GuildMessageTyping,
+		Intents.GuildMessages,
+		// Intents.GuildModeration,
+		// Intents.GuildPresences,
+		// Intents.GuildScheduledEvents,
+		// Intents.GuildVoiceStates,
+		// Intents.GuildWebhooks,
+		Intents.Guilds,
+		Intents.MessageContent,
+	],
+	partials: [
+		Partials.Channel,
+		Partials.Message,
+		Partials.User,
+		// Partials.GuildMember,
+		// Partials.Reaction,
 	],
 	// closeTimeout: 0,
 	// failIfNotExists: true,
@@ -39,5 +43,4 @@ export const options: ClientOptions = {
 		afk: false,
 		status: 'online',
 	}, */
-  
 };

@@ -10,4 +10,5 @@ export enum HandlersType {
   commandInteraction = 'command-interaction',
   buttonInteraction = 'button-interaction',
   clientEvent = 'client-event',
+  messageEvent = 'message-event',
 }
