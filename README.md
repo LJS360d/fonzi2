@@ -26,6 +26,7 @@ Developing a robust and scalable Discord bot can be a daunting task, especially 
 - Cookie-session management for secure user sessions
 - OAuth2 server-side functionality for user authentication and authorization
 - Lightweight and extensible framework to adapt to various bot requirements
+- Centralized on Discord
 
 ## Getting Started
 
@@ -35,6 +36,8 @@ Before you begin, ensure you have the following prerequisites installed:
 
 - Node.js (>=18.12.1)
 - npm (>=9.1.1)
+
+For this purpose i reccomend using nvm (Node Version Manager).
 
 ### Installation
 
@@ -58,31 +61,14 @@ Before you begin, ensure you have the following prerequisites installed:
 
 2. Obtain the bot token from the Bot tab of your newly created application.
 
-3. [Bot invite link] Generate an OAuth2 URL using the OAuth2 URL Generator in the Discord Developer Portal. Select the "bot" scope, for the bot invite link.
+3. [Invite link] Generate an OAuth2 URL using the OAuth2 URL Generator in the Discord Developer Portal. 
+Select the `bot` scope and the permissions you need to generate the bot invite link.
 
-4. [ServerSide OAuth2] Generate an OAuth2 URL using the OAuth2 URL Generator in the Discord Developer Portal. Select the "identify" scope and `http://localhost:<port>/` as your redirect uri for development and **CHANGE `response_type` to `token`**.
+4. [ServerSide OAuth2] Generate an OAuth2 URL using the OAuth2 URL Generator in the Discord Developer Portal. Select the "identify" scope and `http://localhost:<port>/login` as your redirect uri for development and **CHANGE `response_type` to `token`**.
 
-    - For production: you will need to create a new OAuth2 url using the hostname of your deployment (ex. https://fonzi2.ljs360d.repl.co/ as the redirect uri), remember to **CHANGE `response_type` to `token`**.
+    - For production: you will need to create a new OAuth2 url using the hostname of your deployment (ex. https://fonzi2.ljs360d.repl.co/login as the redirect uri), remember to **CHANGE `response_type` to `token`**.
 
-5. Invite the bot to a server using the Bot invite link.
-
-6. Create a `.env` file in the project root directory with the following properties:
-
-    ```bash
-    TOKEN=your-bot-token
-    LOG_WEBHOOK=optional-webhook-url
-    # ServerSide OAuth2 
-    OAUTH2_URL=your-oauth2-url
-    OWNER_IDS=your-owner-ids
-    ```
-
-6. Replace the placeholders with your actual values:
-
-- `TOKEN`: The bot token obtained from the Discord Developer Portal.
-- `LOG_WEBHOOK`: An optional webhook URL to receive bot logs.
-- `OAUTH2_URL`: The generated OAuth2 URL, **CHANGE `response_type` to `token`**.
-- `OWNER_IDS`: A comma-separated list of discord user IDs with administrative privileges.
-    - User IDs are public and can be obtained by being in developer mode in discord and right clicking on a user, here they are used to access the admin dashboard after using the discord OAuth2 service, so you should add your account's User ID and whoever elses you would want to add as an admin for your bot.
+6. Rename the `common.env` file to just `.env` in the project root directory and fill in at least the required properties
 
 7. Configure the bot intents in the `src\client\options.ts` file. Select only the necessary intents to improve bot efficiency and security.
 
@@ -99,9 +85,11 @@ This will start the bot and serverside in development mode, allowing you to test
 I welcome contributions to the project. Feel free to open issues or submit pull requests with improvements or bug fixes.
 
 ### Todo List
-
-- Implement pre-run .env validation
-- Auto-register class decorators for interactions and events
+- Database integration with SQL and NoSQL databases
+- Discord DB pre-integration (store data in channels)
+- Firebase integration instead of replit
+- OAuth2 with google trough firebase
+- Serverside Frontend improvements
 
 ## Deployment
 
@@ -133,31 +121,31 @@ You can host your bot on a dedicated server using the [pm2 package](https://pm2.
    ```bash
    TOKEN=your-bot-token
    LOG_WEBHOOK=optional-webhook-url
+   INVITE_LINK=bot-invite-link
    # Production OAuth2 url
    OAUTH2_URL=your-oauth2-url
    OWNER_IDS=your-user-id,contributors-user-ids
    ```
 6. Build the project and start the process
    ```bash
-   npm run  
+   npm run build
    pm2 start npm --name "fonzi2" -- start
    ```
    - Replace "fonzi2" with your desired PM2 process name.
 7. Monitor and Manage:
 
-   - You can monitor your bot's logs and manage it with PM2 commands:
 
    ```bash
    # see pm2 logs
    pm2 logs fonzi2
 
-   #stop the bot
+   # stop the bot
    pm2 stop fonzi2
 
-   #restart the bot
+   # restart the bot
    pm2 restart fonzi2
 
-   #view process information
+   # view process information
    pm2 show fonzi2
    ```
 
