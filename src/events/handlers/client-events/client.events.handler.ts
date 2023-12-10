@@ -1,4 +1,4 @@
-import { ApplicationCommandData, Guild, Message } from 'discord.js';
+import { ApplicationCommandData, Guild } from 'discord.js';
 import { Logger } from '../../../lib/logger';
 import { Fonzi2Server } from '../../../server/server';
 import { ClientEvent } from '../../decorators/client.event.dec';
