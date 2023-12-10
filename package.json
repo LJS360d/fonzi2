@@ -1,6 +1,6 @@
 {
 	"name": "fonzi2",
-	"version": "0.5.3",
+	"version": "0.5.4",
 	"description": "Discord bot starter kit",
 	"private": true,
 	"type": "commonjs",
@@ -12,7 +12,7 @@
 		"start": "cross-env NODE_ENV=production node ./dist/bundle.js --enable-source-maps",
 		"dev": "cross-env NODE_ENV=development tsnd --respawn --clear  --debounce --transpile-only ./src/main.ts",
 		"build": "rimraf dist && webpack --config webpack.config.js --mode production",
-		"build:secrets": "node envToSecrets.mjs",
+		"build:secrets": "node replit.secrets.mjs",
 		"lint:check": "prettier --check .",
 		"lint": "prettier --write ."
 	},
