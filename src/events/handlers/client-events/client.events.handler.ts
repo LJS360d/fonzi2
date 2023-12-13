@@ -14,13 +14,13 @@ export class ClientEventsHandler extends Handler {
 		// * Successful login
 		Logger.info(`Logged in as ${this.client?.user?.tag}!`);
 
+		const loading = Logger.loading('Started refreshing application (/) commands.');
 		try {
-			const load = Logger.loading();
-			load('Started refreshing application (/) commands.');
 			await this.client?.application?.commands.set(this.commands);
-			load('Successfully reloaded application (/) commands.', true);
+			loading.success('Successfully reloaded application (/) commands.');
 			new Fonzi2Server(this.client!).start();
 		} catch (err: any) {
+			loading.fail('Failed to reload application (/) commands.');
 			Logger.error(err);
 		}
 	}

@@ -66,29 +66,26 @@ export class Logger {
 		this.log('ERROR', 'red', msg);
 	}
 
-	public static loading() {
+	public static loading(startMsg: string) {
 		const frames = ['|', '/', '-', '\\'];
 		const level = 'LOAD';
 		let i = 0;
 		let loader: NodeJS.Timeout;
 		let isLoading = false;
-
-		return (msg: string, success = true) => {
-			const updatePattern = (end?: boolean) => {
-				const frame = frames[i++];
-				const nextMsg = end
-					? `${success ? `${CC.green}✓$` : `${CC.red}✗$`} ${msg}`
-					: `${frame} ${msg}`;
-				i %= frames.length;
-				return this.$(
-					this.pattern
-						.replace('%time', this.now())
-						.replace('%level', level)
-						.replace('%msg', nextMsg)
-						.replace('%color', CC.magenta)
-				);
-			};
-
+		let msg = startMsg;
+		const updatePattern = (endSeq?: string) => {
+			const frame = frames[i++];
+			const nextMsg = `${endSeq || frame} ${msg}`;
+			i %= frames.length;
+			return this.$(
+				this.pattern
+					.replace('%time', this.now())
+					.replace('%level', level)
+					.replace('%msg', nextMsg)
+					.replace('%color', CC.magenta)
+			);
+		};
+		const anim = (endSeq?: string) => {
 			if (!isLoading) {
 				// Start the loading animation
 				isLoading = true;
@@ -96,11 +93,30 @@ export class Logger {
 			} else {
 				// Stop the loading animation
 				clearInterval(loader);
-				process.stdout.write(`${updatePattern(true)}\n`);
+				process.stdout.write(`${updatePattern(endSeq)}\n`);
 				if (this.remoteEnabled)
-					this.remoteLog(level, 'magenta', `${success ? `✓` : `✗`} ${msg}`);
+					this.remoteLog(level, 'magenta', `${endSeq?.at(-2) || ''} ${msg}`);
 				isLoading = false;
 			}
+		};
+
+		anim();
+		return {
+			update: (newMsg: string) => {
+				msg = newMsg;
+			},
+			success: (successMsg: string) => {
+				msg = successMsg;
+				anim(`${CC.green}✓$`);
+			},
+			fail: (failMsg: string) => {
+				msg = failMsg;
+				anim(`${CC.red}✗$`);
+			},
+			abort: (abortMsg?: string) => {
+				msg = abortMsg || 'Loading was aborted';
+				anim(`${CC.yellow}—$`);
+			},
 		};
 	}
 
@@ -114,8 +130,9 @@ export class Logger {
 			.replace('%msg', msg)
 			.replace('%color', CC[color] ?? CC.white);
 
-		console.log(this.$(pattern));    
-		if (this.remoteEnabled && !['DEBUG', 'TRACE'].includes(level)) this.remoteLog(level, color as keyof typeof DC, msg);
+		console.log(this.$(pattern));
+		if (this.remoteEnabled && !['DEBUG', 'TRACE'].includes(level))
+			this.remoteLog(level, color as keyof typeof DC, msg);
 	}
 
 	private static remoteLog(level: string, color: keyof typeof DC, msg: string) {
