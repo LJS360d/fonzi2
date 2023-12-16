@@ -26,6 +26,6 @@
 		"declarationMap": true, // Generate sourcemaps for declaration files
 		"sourceMap": true // Generate sourcemaps for JavaScript files
 	},
-	"include": ["src/**/*.ts"],
+	"include": ["src/**/*.ts", "test/project/main.ts", "test/project/env.ts", "test/project/options.ts"],
 	"exclude": ["node_modules"]
 }

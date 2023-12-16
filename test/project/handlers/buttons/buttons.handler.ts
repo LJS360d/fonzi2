@@ -1,6 +1,6 @@
 import { ButtonInteraction } from 'discord.js';
-import { Button } from '../../decorators/button.interaction.dec';
-import { Handler, HandlersType } from '../base.handler';
+import { Button } from '../../../../src/events/decorators/button.interaction.dec';
+import { Handler, HandlersType } from '../../../../src/events/base.handler';
 
 export class ButtonInteractionHandler extends Handler {
 	public readonly type = HandlersType.buttonInteraction;

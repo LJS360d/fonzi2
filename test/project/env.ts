@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { Logger } from './logger';
+import { Logger } from '../../src/lib/logger/logger';
 export const env = {
 	// ! [REQUIRED] the discord bot's token
 	TOKEN: process.env['TOKEN']!,
@@ -10,7 +10,7 @@ export const env = {
 	// ? [Recommended] a comma separated list of discord user IDs that can access the admin dashboard, leave empty for no auth
 	OWNER_IDS: process.env['OWNER_IDS'] ? process.env['OWNER_IDS'].split(',') : [],
 	// ? [Recommended] the bot Invite link
-	INVITE_LINK: process.env['INVITE_LINK'],
+	INVITE_LINK: process.env['INVITE_LINK']!,
 	// * npm package version
 	VERSION: process.env['npm_package_version']!,
 	// * the server's port (default: 8080)

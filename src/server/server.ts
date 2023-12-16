@@ -4,32 +4,39 @@ import crypto from 'crypto';
 import { Client } from 'discord.js';
 import express, { NextFunction, type Request, type Response } from 'express';
 import http from 'http';
-import { env } from '../lib/env';
-import { CC, Logger } from '../lib/logger';
+import { Logger } from '../lib/logger/logger';
 import { DiscordUserInfo } from '../types/discord.user.info';
+import { AddressInfo } from 'net';
+interface Fonzi2ServerData {
+	inviteLink: string;
+	ownerIds: string[];
+	version: string;
+	oauth2url: string;
+	port?: number;
+}
+
 export class Fonzi2Server {
 	private readonly startTime = Date.now();
-	private port: number = env.PORT;
 	private app: express.Application;
 	private httpServer: http.Server;
-	constructor(private client: Client) {
+	constructor(
+		private client: Client,
+		private data: Fonzi2ServerData
+	) {
 		this.app = express();
-		this.httpServer = http.createServer(this.app);
 		this.app.use(express.static('public'));
-		this.app.use(express.json());
-		const secret = crypto.createHash('sha3-256').update(JSON.stringify(env)).digest('hex');
-		this.app.use(session({ secret }));
 		this.app.set('view engine', 'ejs');
+		this.app.use(express.json());
+		const secret = crypto
+			.createHash('sha3-256')
+			.update(JSON.stringify(data))
+			.digest('hex');
+		this.app.use(session({ secret }));
+		this.httpServer = http.createServer(this.app);
 	}
 
 	start() {
-		this.httpServer.listen(this.port, () => {
-			if (env.NODE_ENV === 'development') {
-				Logger.info(
-					`Server listening on ${CC.doubleUnderline}http://localhost:${env.PORT}`
-				);
-			} else Logger.info(`Server open on port ${env.PORT}`);
-		});
+		this.httpServer.listen(this.data.port, this.logServerStatus.bind(this));
 		this.app.get('/', this.authorize.bind(this));
 		this.app.get('/unauthorized', this.unauthorized.bind(this));
 		this.app.get('/notfound', this.notFound.bind(this));
@@ -39,9 +46,9 @@ export class Fonzi2Server {
 
 		this.app.use(this.notFoundMiddleware.bind(this));
 
-		process.on('SIGTERM', () => {
-			this.stop();
-		});
+		/* this.httpServer.on('request', (req, res) => {
+      Logger.trace(`[${req.method}] ${req.url} ${res.statusCode}`);
+    }) */
 	}
 
 	stop() {
@@ -49,7 +56,7 @@ export class Fonzi2Server {
 	}
 
 	protected dashboard(req: Request, res: Response) {
-		const userInfo = req.session['userInfo'];
+		const userInfo = req.session!['userInfo'];
 		if (!userInfo) {
 			res.redirect('/unauthorized');
 			return;
@@ -58,17 +65,17 @@ export class Fonzi2Server {
 			client: this.client,
 			guilds: this.client.guilds.cache,
 			startTime: this.startTime,
-			version: env.VERSION,
-      inviteLink: env.INVITE_LINK,
+			version: this.data.version,
+			inviteLink: this.data.inviteLink,
 			userInfo,
 		};
 		res.render('default/dashboard', props);
 	}
 
 	protected authorize(req: Request, res: Response) {
-		const userInfo = req.session['userInfo'];
+		const userInfo = req.session!['userInfo'];
 		if (!userInfo) {
-			res.redirect(env.OAUTH2_URL);
+			res.redirect(this.data.oauth2url);
 			return;
 		}
 		res.redirect('/dashboard');
@@ -95,9 +102,9 @@ export class Fonzi2Server {
 		const { accessToken } = req.body;
 		try {
 			const userInfo = await this.getDiscordAuthUserInfo(accessToken);
-			const skipAuth = env.OWNER_IDS.length === 0;
-			if (skipAuth || env.OWNER_IDS.includes(userInfo.id)) {
-				req.session['userInfo'] = userInfo;
+			const skipAuth = this.data.ownerIds.length === 0;
+			if (skipAuth || this.data.ownerIds.includes(userInfo.id)) {
+				req.session!['userInfo'] = userInfo;
 				res.status(302).json({ route: '/dashboard' });
 			} else res.status(401).json({ route: '/unauthorized' });
 		} catch (error: any) {
@@ -121,6 +128,13 @@ export class Fonzi2Server {
 			return authResponse.data;
 		} catch (error: any) {
 			throw error;
+		}
+	}
+
+	private logServerStatus() {
+		const port = (this.httpServer.address() as AddressInfo).port;
+		if (process.env['NODE_ENV'] === 'development') {
+			Logger.info(`Server listening on &uhttp://localhost:${port}$`);
 		}
 	}
 }

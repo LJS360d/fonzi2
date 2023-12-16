@@ -1,9 +1,9 @@
 import { ChatInputCommandInteraction } from 'discord.js';
-import { Buttons } from '../../../components/buttons';
-import { env } from '../../../lib/env';
-import { Command } from '../../decorators/command.interaction.dec';
-import { Handler, HandlersType } from '../base.handler';
-import { ActionRow } from '../../../components/action-row';
+import { Buttons } from '../../../../src/components/buttons';
+import { env } from '../../env';
+import { Command } from '../../../../src/events/decorators/command.interaction.dec';
+import { Handler, HandlersType } from '../../../../src/events/base.handler';
+import { ActionRow } from '../../../../src/components/action-row';
 
 export class CommandInteractionsHandler extends Handler {
 	public readonly type = HandlersType.commandInteraction;

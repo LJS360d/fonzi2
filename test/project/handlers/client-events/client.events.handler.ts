@@ -1,11 +1,12 @@
 import { ApplicationCommandData, Guild } from 'discord.js';
-import { Logger } from '../../../lib/logger';
-import { Fonzi2Server } from '../../../server/server';
-import { ClientEvent } from '../../decorators/client.event.dec';
-import { Handler, HandlersType } from '../base.handler';
+import { Logger } from '../../../../src/lib/logger/logger';
+import { Fonzi2Server } from '../../../../src/server/server';
+import { ClientEvent } from '../../../../src/events/decorators/client.event.dec';
+import { Handler, HandlersType } from '../../../../src/events/base.handler';
+import { env } from '../../env';
 
 export class ClientEventsHandler extends Handler {
-	public type = HandlersType.clientEvent;
+	public readonly type = HandlersType.clientEvent;
 	constructor(private commands: ApplicationCommandData[]) {
 		super();
 	}
@@ -18,7 +19,13 @@ export class ClientEventsHandler extends Handler {
 		try {
 			await this.client?.application?.commands.set(this.commands);
 			loading.success('Successfully reloaded application (/) commands.');
-			new Fonzi2Server(this.client!).start();
+			new Fonzi2Server(this.client!, {
+				port: env.PORT,
+				inviteLink: env.INVITE_LINK,
+				oauth2url: env.OAUTH2_URL,
+				ownerIds: env.OWNER_IDS,
+				version: env.VERSION,
+			}).start();
 		} catch (err: any) {
 			loading.fail('Failed to reload application (/) commands.');
 			Logger.error(err);

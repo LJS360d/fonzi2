@@ -1,7 +1,7 @@
 import { ChannelType, Message } from 'discord.js';
-import { Logger } from '../../../lib/logger';
-import { MessageEvent } from '../../decorators/message.dec';
-import { Handler, HandlersType } from '../base.handler';
+import { Logger } from '../../../../src/lib/logger/logger';
+import { MessageEvent } from '../../../../src/events/decorators/message.dec';
+import { Handler, HandlersType } from '../../../../src/events/base.handler';
 
 export class MessageHandler extends Handler {
 	public readonly type = HandlersType.messageEvent;

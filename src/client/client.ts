@@ -2,14 +2,12 @@ import { Client, ClientOptions, Message } from 'discord.js';
 import { getButtonsMetadata } from '../events/decorators/button.interaction.dec';
 import { getEventsMetadata } from '../events/decorators/client.event.dec';
 import { getCommandsMetadata } from '../events/decorators/command.interaction.dec';
-import { Handler } from '../events/handlers/base.handler';
-import { Logger } from '../lib/logger';
-import { env, validateEnv } from '../lib/env';
 import { getMessageEventsMetadata } from '../events/decorators/message.dec';
+import { Handler } from '../events/base.handler';
+import { Logger } from '../lib/logger/logger';
 export default class Fonzi2Client extends Client {
-	constructor(options: ClientOptions, handlers: Handler[]) {
+	constructor(token: string, options: ClientOptions, handlers: Handler[]) {
 		super(options);
-		validateEnv();
 		const clientEventHandlers: Handler[] = [];
 		const messageEventHandlers: Handler[] = [];
 		const commandInteractionHandlers: Handler[] = [];
@@ -35,7 +33,7 @@ export default class Fonzi2Client extends Client {
 		this.registerMessageEventHandlers(messageEventHandlers);
 		this.registerCommandInteractionsHandlers(commandInteractionHandlers);
 		this.registerButtonInteractionsHandlers(buttonInteractionHandlers);
-		this.login(env.TOKEN);
+		this.login(token);
 	}
 
 	private registerClientEventHandlers(handlers: Handler[]) {
@@ -50,7 +48,7 @@ export default class Fonzi2Client extends Client {
 	private registerMessageEventHandlers(handlers: Handler[]) {
 		handlers.forEach((handler) => {
 			const clientEvents = getMessageEventsMetadata(handler);
-			for (const { type, method } of clientEvents) {        
+			for (const { type, method } of clientEvents) {
 				this.on('messageCreate', (message: Message<boolean>) => {
 					if (message.channel.type === type) method.call(handler, message);
 				});
