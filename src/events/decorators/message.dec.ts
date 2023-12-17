@@ -1,5 +1,5 @@
-import 'reflect-metadata';
 import { ChannelType } from 'discord.js';
+import 'reflect-metadata';
 import { Handler } from '../base.handler';
 
 type MessageType = keyof typeof ChannelType;
@@ -13,7 +13,7 @@ export function getMessageEventsMetadata(target: any): MessageEventMetadata[] {
 
 export function MessageEvent(type: MessageType): MethodDecorator {
   
-	return (target: Handler, _, descriptor: PropertyDescriptor) => {
+	return function (target: Handler, _, descriptor: PropertyDescriptor): any {
 		const messageEvents: MessageEventMetadata[] =
 			Reflect.getOwnMetadata(messageEventsKey, target) || [];
 		messageEvents.push({ type: ChannelType[type], method: descriptor.value });

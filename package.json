@@ -1,30 +1,23 @@
 {
   "name": "fonzi2",
-  "version": "0.6.0",
+  "version": "0.0.0",
   "description": "Discord bot starter kit",
-  "private": true,
   "type": "commonjs",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18.12.1",
+    "pnpm": ">=8.6.6",
     "npm": ">=9.1.1"
   },
-  "exports": {
-    "./logger": "./build/src/lib/logger/logger.js",
-    "./client": "./build/src/client/client.js",
-    "./server": "./build/src/server/server.js",
-    "./core": "./build/src/events",
-    "./components": "./build/src/components"
-  },
-  "files": [
-    "build"
-  ],
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./dist/bundle.js --enable-source-maps",
-    "dev": "cross-env NODE_ENV=development tsnd --respawn --clear  --debounce --transpile-only ./test/project/main.ts",
-    "build": "rimraf dist && webpack --config webpack.config.js --mode production",
-    "build:secrets": "node replit.secrets.mjs",
+    "test": "cross-env NODE_ENV=development tsnd --respawn --clear  --debounce --transpile-only ./test/project/main.ts",
+    "build": "rimraf dist && tsup --config tsup.config.ts && pnpm copyfiles",
+    "copyfiles": "copyfiles -u 1 views/**/*.ejs dist/views && copyfiles -u 1 public/**/* dist/public",
     "lint:check": "prettier --check .",
-    "lint": "prettier --write ."
+    "release": "pnpm run build && changeset publish",
+    "lint": "prettier --write . && tsc"
   },
   "keywords": [
     "discord",
@@ -32,29 +25,28 @@
     "typescript"
   ],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
+  "license": "MIT",
+  "peerDependencies": {
     "axios": "^1.6.2",
     "cookie-session": "^2.0.0",
-    "cross-env": "^7.0.3",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.3.2"
+    "express": "^4.18.2"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@types/cookie-session": "^2.0.48",
     "@types/express": "^4.17.21",
     "@types/node": "^20.10.1",
+    "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
     "prettier": "^3.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^1.1.8",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-node-externals": "^3.0.0"
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.2"
   }
 }
