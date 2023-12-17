@@ -132,7 +132,7 @@ export class Logger {
 					},
 				});
 		} catch (error: any) {
-      // ignore 429 error response
+			// ignore 429 error response
 			if (error.response && error.response.status === 429) {
 				return;
 			}

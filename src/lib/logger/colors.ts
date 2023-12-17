@@ -40,33 +40,33 @@ export enum DC {
 }
 
 export const textStyleReplaceMap = new Map([
-  ['&b', CC.bold],
-  ['&i', CC.italic],
-  ['&u', CC.underline],
-  ['&h', CC.highlight],
-  ['&s', CC.strikethrough],
-  ['&du', CC.doubleUnderline],
+	['&b', CC.bold],
+	['&i', CC.italic],
+	['&u', CC.underline],
+	['&h', CC.highlight],
+	['&s', CC.strikethrough],
+	['&du', CC.doubleUnderline],
 ]);
 
 export const textColorReplaceMap = new Map([
-  ['#black', CC.black],
-  ['#gray', CC.gray],
-  ['#red', CC.red],
-  ['#green', CC.green],
-  ['#yellow', CC.yellow],
-  ['#blue', CC.blue],
-  ['#magenta', CC.magenta],
-  ['#cyan', CC.cyan],
-  ['#white', CC.white],
+	['#black', CC.black],
+	['#gray', CC.gray],
+	['#red', CC.red],
+	['#green', CC.green],
+	['#yellow', CC.yellow],
+	['#blue', CC.blue],
+	['#magenta', CC.magenta],
+	['#cyan', CC.cyan],
+	['#white', CC.white],
 ]);
 
 export const textBackgroundReplaceMap = new Map([
-  ['£black', CC.blackbg],
-  ['£red', CC.redbg],
-  ['£green', CC.greenbg],
-  ['£yellow', CC.yellowbg],
-  ['£blue', CC.bluebg],
-  ['£magenta', CC.magentabg],
-  ['£cyan', CC.cyanbg],
-  ['£white', CC.whitebg],
+	['£black', CC.blackbg],
+	['£red', CC.redbg],
+	['£green', CC.greenbg],
+	['£yellow', CC.yellowbg],
+	['£blue', CC.bluebg],
+	['£magenta', CC.magentabg],
+	['£cyan', CC.cyanbg],
+	['£white', CC.whitebg],
 ]);

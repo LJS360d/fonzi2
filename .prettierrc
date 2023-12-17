@@ -2,7 +2,7 @@
 	"bracketSpacing": true,
 	"embeddedLanguageFormatting": "auto",
 	"useTabs": true,
-	"endOfLine": "auto",
+	"endOfLine": "lf",
 	"quoteProps": "consistent",
 	"trailingComma": "es5",
 	"tabWidth": 2,

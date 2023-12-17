@@ -21,7 +21,7 @@ const defaultConfig: LoggerConfig = {
 		enabled: true,
 		webhook: process.env['LOG_WEBHOOK'],
 		levels: 'all',
-	}
+	},
 };
 // TODO make configurable from external file
 export function getLoggerConfig(): LoggerConfig {
