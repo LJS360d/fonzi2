@@ -8,6 +8,16 @@
     "node": ">=18.12.1",
     "npm": ">=9.1.1"
   },
+  "exports": {
+    "./logger": "./build/src/lib/logger/logger.js",
+    "./client": "./build/src/client/client.js",
+    "./server": "./build/src/server/server.js",
+    "./core": "./build/src/events",
+    "./components": "./build/src/components"
+  },
+  "files": [
+    "build"
+  ],
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./dist/bundle.js --enable-source-maps",
     "dev": "cross-env NODE_ENV=development tsnd --respawn --clear  --debounce --transpile-only ./test/project/main.ts",

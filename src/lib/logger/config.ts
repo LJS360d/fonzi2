@@ -23,7 +23,7 @@ const defaultConfig: LoggerConfig = {
 		levels: 'all',
 	}
 };
-
+// TODO make configurable from external file
 export function getLoggerConfig(): LoggerConfig {
 	return { ...defaultConfig };
 }

@@ -3,7 +3,7 @@
     // Do not touch
 		"target": "ES6",
 		"module": "commonjs",
-		"outDir": "./dist",
+		"outDir": "./build",
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
@@ -26,6 +26,6 @@
 		"declarationMap": true, // Generate sourcemaps for declaration files
 		"sourceMap": true // Generate sourcemaps for JavaScript files
 	},
-	"include": ["src/**/*.ts", "test/project/main.ts", "test/project/env.ts", "test/project/options.ts"],
+	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]
 }
