@@ -5,7 +5,8 @@ import { getEventsMetadata } from '../events/decorators/client.event.dec';
 import { getCommandsMetadata } from '../events/decorators/command.interaction.dec';
 import { getMessageEventsMetadata } from '../events/decorators/message.dec';
 import { Logger } from '../lib/logger/logger';
-export default class Fonzi2Client extends Client {
+
+export class Fonzi2Client extends Client {
 	constructor(token: string, options: ClientOptions, handlers: Handler[]) {
 		super(options);
 		const clientEventHandlers: Handler[] = [];

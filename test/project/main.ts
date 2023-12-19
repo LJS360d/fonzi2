@@ -1,4 +1,4 @@
-import Fonzi2Client from '../../src/client/client';
+import { Fonzi2Client } from '../../src/client/client';
 import { options } from './options';
 import { getRegisteredCommands } from '../../src/events/decorators/command.interaction.dec';
 import { ButtonInteractionHandler } from './handlers/buttons/buttons.handler';
