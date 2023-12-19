@@ -1,12 +1,12 @@
 {
 	"name": "fonzi2",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Discord bot starter kit",
 	"type": "commonjs",
 	"files": [
 		"dist"
 	],
-  "main": "dist/index.js",
+	"main": "dist/index.js",
 	"scripts": {
 		"test": "cross-env NODE_ENV=development tsnd --respawn --clear  --debounce --transpile-only ./test/project/main.ts",
 		"build": "rimraf dist && tsup --config tsup.config.ts && pnpm copyfiles",
