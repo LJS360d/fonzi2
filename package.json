@@ -45,5 +45,8 @@
 	},
 	"changeset": {
 		"defaultBranch": "master"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
