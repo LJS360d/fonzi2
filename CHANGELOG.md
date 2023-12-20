@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.4.1
+
+### Patch Changes
+
+- 7c4f582: fix prod paths
+
 ## 0.4.0
 
 ### Minor Changes
