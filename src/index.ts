@@ -7,4 +7,4 @@ export * from './events/decorators/button.interaction.dec';
 export * from './events/decorators/client.event.dec';
 export * from './events/decorators/command.interaction.dec';
 export * from './events/decorators/message.dec';
-export * from './lib/logger/logger';
+export * from './logger/logger';

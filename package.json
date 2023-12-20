@@ -12,7 +12,7 @@
 	"scripts": {
 		"test": "cross-env NODE_ENV=development jest --config ./test/jest.config.json --detectOpenHandles",
 		"build": "rimraf dist && tsup --config tsup.config.ts && pnpm copyfiles",
-		"copyfiles": "copyfiles -u 1 views/**/*.ejs dist/views && copyfiles -u 1 public/**/* dist/public",
+		"copyfiles": "copyfiles -u 1 views/**/*.ejs dist/lib/views && copyfiles -u 1 public/**/* dist/lib/public",
 		"release": "pnpm build && changeset publish",
 		"lint": "prettier --write . && tsc"
 	},

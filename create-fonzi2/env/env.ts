@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { Logger } from '../../src/lib/logger/logger';
+import { Logger } from '../../src/logger/logger';
 const env = {
 	// ! [REQUIRED] the discord bot's token
 	TOKEN: process.env['TOKEN']!,

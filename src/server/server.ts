@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import { Client } from 'discord.js';
 import express, { NextFunction, type Request, type Response } from 'express';
 import http from 'http';
-import { Logger } from '../lib/logger/logger';
+import { Logger } from '../logger/logger';
 import { DiscordUserInfo } from '../types/discord.user.info';
 import { AddressInfo } from 'net';
 interface Fonzi2ServerData {

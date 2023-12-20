@@ -4,7 +4,7 @@ import { getButtonsMetadata } from '../events/decorators/button.interaction.dec'
 import { getEventsMetadata } from '../events/decorators/client.event.dec';
 import { getCommandsMetadata } from '../events/decorators/command.interaction.dec';
 import { getMessageEventsMetadata } from '../events/decorators/message.dec';
-import { Logger } from '../lib/logger/logger';
+import { Logger } from '../logger/logger';
 
 export class Fonzi2Client extends Client {
 	constructor(token: string, options: ClientOptions, handlers: Handler[]) {
