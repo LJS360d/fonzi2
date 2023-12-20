@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.2.1
+
+### Patch Changes
+
+- 2eb2364: fix dist structure, extracted logger
+
 ## 0.2.0
 
 ### Minor Changes
