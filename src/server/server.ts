@@ -138,5 +138,8 @@ export class Fonzi2Server {
 		if (process.env['NODE_ENV'] === 'development') {
 			Logger.info(`Server listening on &uhttp://localhost:${port}$`);
 		}
+    if(process.env['NODE_ENV'] === 'production') {
+      Logger.info(`Server listening on port ${port}`);
+    }
 	}
 }
