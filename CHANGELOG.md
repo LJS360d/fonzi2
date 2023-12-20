@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.4.0
+
+### Minor Changes
+
+- 9f34a4c: server status logger for production
+
 ## 0.3.0
 
 ### Minor Changes
