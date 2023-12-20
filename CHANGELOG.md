@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.3.0
+
+### Minor Changes
+
+- 1b753a4: views changes for dist structure
+
 ## 0.2.1
 
 ### Patch Changes

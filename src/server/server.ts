@@ -4,10 +4,10 @@ import crypto from 'crypto';
 import { Client } from 'discord.js';
 import express, { NextFunction, type Request, type Response } from 'express';
 import http from 'http';
+import { AddressInfo } from 'net';
+import { resolve } from 'path';
 import { Logger } from '../logger/logger';
 import { DiscordUserInfo } from '../types/discord.user.info';
-import { AddressInfo } from 'net';
-import { join } from 'path';
 interface Fonzi2ServerData {
 	inviteLink: string;
 	ownerIds: string[];
@@ -27,7 +27,7 @@ export class Fonzi2Server {
 		this.app = express();
 		this.app.use(express.static('public'));
 		this.app.set('view engine', 'ejs');
-		this.app.set('views', join(__dirname, '../../views'));
+		this.app.set('views', resolve(__dirname, 'views'));
 		this.app.use(express.json());
 		const secret = crypto
 			.createHash('sha3-256')
