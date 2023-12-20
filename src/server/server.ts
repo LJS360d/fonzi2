@@ -25,7 +25,7 @@ export class Fonzi2Server {
 		private data: Fonzi2ServerData
 	) {
 		this.app = express();
-		this.app.use(express.static('public'));
+		this.app.use(express.static(resolve(__dirname, 'public')));
 		this.app.set('view engine', 'ejs');
 		this.app.set('views', resolve(__dirname, 'views'));
 		this.app.use(express.json());
@@ -138,8 +138,8 @@ export class Fonzi2Server {
 		if (process.env['NODE_ENV'] === 'development') {
 			Logger.info(`Server listening on &uhttp://localhost:${port}$`);
 		}
-    if(process.env['NODE_ENV'] === 'production') {
-      Logger.info(`Server listening on port ${port}`);
-    }
+		if (process.env['NODE_ENV'] === 'production') {
+			Logger.info(`Server listening on port ${port}`);
+		}
 	}
 }
