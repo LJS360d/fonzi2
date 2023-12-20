@@ -1,24 +1,30 @@
 {
-	"compilerOptions": {
-		"target": "ES6",
-		"module": "commonjs",
-		"outDir": "./build",
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"noEmit": true,
-		"strict": false,
-		"noImplicitAny": false,
-		"strictNullChecks": true,
-		"noImplicitReturns": true,
-		"noPropertyAccessFromIndexSignature": true,
-		"noErrorTruncation": true,
-		"forceConsistentCasingInFileNames": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"isolatedModules": true,
-		"types": ["node"]
-	},
-	"include": ["src/**/*.ts"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "./build",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noEmit": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noErrorTruncation": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { Logger } from '../../src/lib/logger/logger';
-export const env = {
+const env = {
 	// ! [REQUIRED] the discord bot's token
 	TOKEN: process.env['TOKEN']!,
 	// ? [Recommended] a webhook for logs
@@ -33,6 +33,8 @@ export const env = {
 		measurementId: process.env['measurementId'],
 	},
 } as const;
+
+export default env;
 
 export function validateEnv(warn = true, Env = env) {
 	let invalidEnv = false;

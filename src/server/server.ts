@@ -24,7 +24,7 @@ export class Fonzi2Server {
 		private data: Fonzi2ServerData
 	) {
 		this.app = express();
-		this.app.use(express.static('public'));
+		this.app.use(express.static('../../public'));
 		this.app.set('view engine', 'ejs');
 		this.app.use(express.json());
 		const secret = crypto
