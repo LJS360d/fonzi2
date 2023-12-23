@@ -8,13 +8,7 @@ import { AddressInfo } from 'net';
 import { resolve } from 'path';
 import { Logger } from '../logger/logger';
 import { DiscordUserInfo } from '../types/discord.user.info';
-export interface Fonzi2ServerData {
-	inviteLink: string;
-	ownerIds: string[];
-	version: string;
-	oauth2url: string;
-	port?: number;
-}
+import { Fonzi2ServerData } from '../types/server.data';
 
 export class Fonzi2Server {
 	protected readonly startTime = Date.now();
