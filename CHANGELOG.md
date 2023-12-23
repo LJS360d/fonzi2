@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.4.3
+
+### Patch Changes
+
+- ca578ef: fix exports
+
 ## 0.4.2
 
 ### Patch Changes
