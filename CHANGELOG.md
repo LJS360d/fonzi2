@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.4.2
+
+### Patch Changes
+
+- 357c3e7: export server data
+
 ## 0.4.1
 
 ### Patch Changes

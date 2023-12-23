@@ -1,12 +1,12 @@
 {
 	"name": "fonzi2",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"description": "Discord bot starter kit",
 	"type": "commonjs",
-  "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "pnpm@8.12.1",
+	"engines": {
+		"node": ">=18"
+	},
+	"packageManager": "pnpm@8.12.1",
 	"files": [
 		"dist"
 	],
