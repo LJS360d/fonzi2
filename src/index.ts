@@ -1,9 +1,9 @@
 /* Client domain */
-export { Fonzi2Client } from './client/client';
+export * from './client/client';
 export * from './events/base.handler';
 /* Server domain */
-export { Fonzi2Server } from './server/server';
-export { type Fonzi2ServerData } from './types/server.data';
+export * from './server/server';
+export * from './types/server.data';
 /* Embed Components */
 export * from './components/action-row';
 export * from './components/buttons';
@@ -13,4 +13,5 @@ export * from './events/decorators/client.event.dec';
 export * from './events/decorators/command.interaction.dec';
 export * from './events/decorators/message.dec';
 /* Utilities */
-export { Logger } from './logger/logger';
+export * from './logger/logger';
+export * from './logger/colors';
