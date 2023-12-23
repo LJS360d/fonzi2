@@ -8,7 +8,7 @@ import { AddressInfo } from 'net';
 import { resolve } from 'path';
 import { Logger } from '../logger/logger';
 import { DiscordUserInfo } from '../types/discord.user.info';
-interface Fonzi2ServerData {
+export interface Fonzi2ServerData {
 	inviteLink: string;
 	ownerIds: string[];
 	version: string;
@@ -17,12 +17,12 @@ interface Fonzi2ServerData {
 }
 
 export class Fonzi2Server {
-	private readonly startTime = Date.now();
-	private app: express.Application;
-	private httpServer: http.Server;
+	protected readonly startTime = Date.now();
+	protected app: express.Application;
+	protected httpServer: http.Server;
 	constructor(
-		private client: Client,
-		private data: Fonzi2ServerData
+		protected client: Client,
+		protected data: Fonzi2ServerData
 	) {
 		this.app = express();
 		this.app.use(express.static(resolve(__dirname, 'public')));
@@ -38,16 +38,15 @@ export class Fonzi2Server {
 	}
 
 	start() {
-		this.httpServer.listen(this.data.port, this.logServerStatus.bind(this));
-		this.app.get('/', this.authorize.bind(this));
+    this.app.get('/', this.authorize.bind(this));
 		this.app.get('/unauthorized', this.unauthorized.bind(this));
 		this.app.get('/notfound', this.notFound.bind(this));
 		this.app.get('/login', this.login.bind(this));
 		this.app.post('/login', this.loginPost.bind(this));
 		this.app.get('/dashboard', this.dashboard.bind(this));
-
+    
 		this.app.use(this.notFoundMiddleware.bind(this));
-
+		this.httpServer.listen(this.data.port, this.logServerStatus.bind(this));
 		/* this.httpServer.on('request', (req, res) => {
       Logger.trace(`[${req.method}] ${req.url} ${res.statusCode}`);
     }) */
@@ -100,7 +99,7 @@ export class Fonzi2Server {
 		next();
 	}
 
-	private async loginPost(req: Request, res: Response) {
+	protected async loginPost(req: Request, res: Response) {
 		const { accessToken } = req.body;
 		try {
 			const userInfo = await this.getDiscordAuthUserInfo(accessToken);
@@ -114,7 +113,7 @@ export class Fonzi2Server {
 		}
 	}
 
-	private async getDiscordAuthUserInfo(accessToken: string): Promise<DiscordUserInfo> {
+	protected async getDiscordAuthUserInfo(accessToken: string): Promise<DiscordUserInfo> {
 		try {
 			const authResponse: AxiosResponse<DiscordUserInfo, any> = await axios.get(
 				'https://discord.com/api/v10/users/@me',
@@ -133,7 +132,7 @@ export class Fonzi2Server {
 		}
 	}
 
-	private logServerStatus() {
+	protected logServerStatus() {
 		const port = (this.httpServer.address() as AddressInfo).port;
 		if (process.env['NODE_ENV'] === 'development') {
 			Logger.info(`Server listening on &uhttp://localhost:${port}$`);
