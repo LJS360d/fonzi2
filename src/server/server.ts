@@ -19,6 +19,7 @@ export class Fonzi2Server {
 		protected data: Fonzi2ServerData
 	) {
 		this.app = express();
+    this.httpServer = http.createServer(this.app);
 		this.app.use(express.static(resolve(__dirname, 'public')));
 		this.app.set('view engine', 'ejs');
 		this.app.set('views', resolve(__dirname, 'views'));
@@ -28,7 +29,6 @@ export class Fonzi2Server {
 			.update(JSON.stringify(data))
 			.digest('hex');
 		this.app.use(session({ secret }));
-		this.httpServer = http.createServer(this.app);
 	}
 
 	start() {
@@ -38,12 +38,9 @@ export class Fonzi2Server {
 		this.app.get('/login', this.login.bind(this));
 		this.app.post('/login', this.loginPost.bind(this));
 		this.app.get('/dashboard', this.dashboard.bind(this));
-    
+
 		this.app.use(this.notFoundMiddleware.bind(this));
 		this.httpServer.listen(this.data.port, this.logServerStatus.bind(this));
-		/* this.httpServer.on('request', (req, res) => {
-      Logger.trace(`[${req.method}] ${req.url} ${res.statusCode}`);
-    }) */
 	}
 
 	stop() {

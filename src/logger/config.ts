@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-type LoggerConfig = Readonly<{
+export type LoggerConfig = Readonly<{
 	enabled: boolean;
 	pattern: string;
 	levels: 'all' | LoggerLevel[];
