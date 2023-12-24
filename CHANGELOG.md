@@ -1,5 +1,12 @@
 # fonzi2
 
+## 0.4.4
+
+### Patch Changes
+
+- d29d691: fix exports
+- 3692969: revert export method
+
 ## 0.4.3
 
 ### Patch Changes
