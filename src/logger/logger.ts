@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { EmbedBuilder } from 'discord.js';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import {
 	CC,
 	DC,
@@ -12,6 +14,8 @@ import { capitalize, now } from './utils';
 
 export class Logger {
 	protected static readonly config = getLoggerConfig();
+	protected static readonly startupTimestamp = String(Date.now());
+	private static readonly fileEncoding = 'utf-8';
 
 	public static info(msg: string | object): void {
 		this.log('INFO', 'green', msg);
@@ -50,6 +54,10 @@ export class Logger {
 			!this.config.remote.enabled ||
 			(this.config.remote.levels !== 'all' && !this.config.remote.levels.includes(level));
 
+		const fileDisabled =
+			!this.config.file.enabled ||
+			(this.config.file.levels !== 'all' && !this.config.file.levels.includes(level));
+
 		const updatePattern = (endSeq?: string) => {
 			const frame = frames[i++];
 			const nextMsg = `${endSeq || frame} ${msg}`;
@@ -69,6 +77,7 @@ export class Logger {
 				if (!disabled) process.stdout.write(`${updatePattern(endSeq)}\n`);
 				if (!remoteDisabled)
 					this.remoteLog(level, color, `${endSeq?.at(-2) || ''} ${msg}`);
+				if (!fileDisabled) this.fileLog(level, color, `${endSeq?.at(-2) || ''} ${msg}`);
 				isLoading = false;
 			}
 		};
@@ -85,10 +94,6 @@ export class Logger {
 			fail: (failMsg: string) => {
 				msg = failMsg;
 				anim(`#red✗$`);
-			},
-			abort: (abortMsg?: string) => {
-				msg = abortMsg || 'Loading was aborted';
-				anim(`#yellow—$`);
 			},
 		};
 	}
@@ -110,6 +115,10 @@ export class Logger {
 
 		if (this.config.remote.enabled) {
 			this.remoteLog(level, color as keyof typeof DC, msg);
+		}
+
+		if (this.config.file.enabled) {
+			this.fileLog(level, color as keyof typeof DC, msg);
 		}
 	}
 
@@ -136,6 +145,21 @@ export class Logger {
 			if (error.response && error.response.status === 429) {
 				return;
 			}
+		}
+	}
+
+	private static fileLog(level: LoggerLevel, color: keyof typeof DC, msg: string) {
+		const text = this.stripStyle(this.applyData(msg, level, color));
+		if (this.config.file.enabled) {
+			if (!existsSync(this.config.file.path)) {
+				mkdirSync(this.config.file.path);
+			}
+			const logFilepath = join(this.config.file.path, this.startupTimestamp);
+			if (!existsSync(logFilepath)) {
+				writeFileSync(logFilepath, text, this.fileEncoding);
+				return;
+			}
+			writeFileSync(logFilepath, text, { flag: 'a', encoding: this.fileEncoding });
 		}
 	}
 

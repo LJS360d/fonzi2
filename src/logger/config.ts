@@ -1,4 +1,6 @@
 import 'dotenv/config';
+import { existsSync, readFileSync } from 'fs';
+import { resolve } from 'path';
 
 export type LoggerConfig = Readonly<{
 	enabled: boolean;
@@ -7,6 +9,11 @@ export type LoggerConfig = Readonly<{
 	remote: {
 		enabled: boolean;
 		webhook?: string;
+		levels: 'all' | LoggerLevel[];
+	};
+	file: {
+		enabled: boolean;
+		path: string;
 		levels: 'all' | LoggerLevel[];
 	};
 }>;
@@ -22,8 +29,37 @@ const defaultConfig: LoggerConfig = {
 		webhook: process.env['LOG_WEBHOOK'],
 		levels: 'all',
 	},
+	file: {
+		enabled: true,
+		path: 'logs',
+		levels: 'all',
+	},
 };
 // TODO make configurable from external file
 export function getLoggerConfig(): LoggerConfig {
+	const configFilepath = resolve('fonzi2.logger.config.json');
+	if (existsSync(configFilepath)) {
+		const fileContent = readFileSync(configFilepath, 'utf8');
+		try {
+			const parsedConfig = JSON.parse(fileContent);
+			const mergedConfig = mergeConfigs(defaultConfig, parsedConfig);
+			return mergedConfig;
+		} catch (error) {
+			console.error('Error parsing logger config file:', error);
+			process.exit(1);
+		}
+	}
+
 	return { ...defaultConfig };
+}
+
+function mergeConfigs(strictConfig: LoggerConfig, anyConfig: any): LoggerConfig {
+	const mergedConfig = {
+		...strictConfig,
+		...anyConfig,
+		remote: { ...strictConfig.remote, ...anyConfig.remote },
+		file: { ...strictConfig.file, ...anyConfig.file },
+	};
+
+	return mergedConfig;
 }
