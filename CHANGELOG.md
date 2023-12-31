@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.5.2
+
+### Patch Changes
+
+- fa16d85: fix first log message in file not creating new line
+
 ## 0.5.1
 
 ### Patch Changes
