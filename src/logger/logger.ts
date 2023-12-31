@@ -156,7 +156,7 @@ export class Logger {
 			}
 			const logFilepath = join(this.config.file.path, `${this.startupTimestamp}.log`);
 			if (!existsSync(logFilepath)) {
-				writeFileSync(logFilepath, text, this.fileEncoding);
+				writeFileSync(logFilepath, text + '\n', this.fileEncoding);
 				return;
 			}
 			writeFileSync(logFilepath, text + '\n', { flag: 'a', encoding: this.fileEncoding });
