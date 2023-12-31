@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.5.1
+
+### Patch Changes
+
+- fc2b990: fix file logging not making new line and file extension
+
 ## 0.5.0
 
 ### Minor Changes
