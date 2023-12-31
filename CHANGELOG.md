@@ -1,5 +1,12 @@
 # fonzi2
 
+## 0.5.0
+
+### Minor Changes
+
+- e8ef910: - added fonzi2.logger.config.json support
+  - added logging to file support
+
 ## 0.4.5
 
 ### Patch Changes
