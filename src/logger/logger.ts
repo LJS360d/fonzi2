@@ -154,12 +154,12 @@ export class Logger {
 			if (!existsSync(this.config.file.path)) {
 				mkdirSync(this.config.file.path);
 			}
-			const logFilepath = join(this.config.file.path, this.startupTimestamp);
+			const logFilepath = join(this.config.file.path, `${this.startupTimestamp}.log`);
 			if (!existsSync(logFilepath)) {
 				writeFileSync(logFilepath, text, this.fileEncoding);
 				return;
 			}
-			writeFileSync(logFilepath, text, { flag: 'a', encoding: this.fileEncoding });
+			writeFileSync(logFilepath, text + '\n', { flag: 'a', encoding: this.fileEncoding });
 		}
 	}
 
