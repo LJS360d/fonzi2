@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.5.3
+
+### Patch Changes
+
+- 22d71c6: add logger config json schema
+
 ## 0.5.2
 
 ### Patch Changes
