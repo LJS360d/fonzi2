@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
 	entry: ['src/'],
-  outDir: 'dist/lib',
+	outDir: 'dist/lib',
 	splitting: false,
 	sourcemap: true,
 	dts: true,
@@ -10,4 +10,7 @@ export default defineConfig({
 	clean: true,
 	treeshake: true,
 	format: ['esm', 'cjs'],
+	loader: {
+		'.json': 'copy',
+	},
 });

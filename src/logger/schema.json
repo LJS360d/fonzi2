@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "pattern": {
+      "type": "string"
+    },
+    "levels": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["all"]
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["DEBUG", "INFO", "WARN", "ERROR", "TRACE", "LOAD"]
+          }
+        }
+      ]
+    },
+    "remote": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "webhook": {
+          "type": "string"
+        },
+        "levels": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["all"]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["DEBUG", "INFO", "WARN", "ERROR", "TRACE", "LOAD"]
+              }
+            }
+          ]
+        }
+      },
+      "required": ["enabled", "levels"]
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        },
+        "levels": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["all"]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["DEBUG", "INFO", "WARN", "ERROR", "TRACE", "LOAD"]
+              }
+            }
+          ]
+        }
+      },
+      "required": ["enabled", "path", "levels"]
+    }
+  },
+  "required": ["enabled", "pattern", "levels", "remote", "file"]
+}
