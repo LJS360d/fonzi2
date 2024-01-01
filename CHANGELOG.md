@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.5.4
+
+### Patch Changes
+
+- dbed72b: fix logger config schema required props
+
 ## 0.5.3
 
 ### Patch Changes
