@@ -1,5 +1,11 @@
 # fonzi2
 
+## 0.6.0
+
+### Minor Changes
+
+- c27b7c3: configuration file loader with multi extension support
+
 ## 0.5.4
 
 ### Patch Changes
