@@ -3,11 +3,11 @@ import { EmbedBuilder } from 'discord.js';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import {
-	CC,
-	DC,
-	textBackgroundReplaceMap,
-	textColorReplaceMap,
-	textStyleReplaceMap,
+  CC,
+  DC,
+  textBackgroundReplaceMap,
+  textColorReplaceMap,
+  textStyleReplaceMap,
 } from './colors';
 import { LoggerLevel, getLoggerConfig } from './config';
 import { capitalize, now } from './utils';

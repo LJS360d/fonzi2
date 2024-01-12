@@ -15,3 +15,5 @@ export * from './events/decorators/message.dec';
 /* Utilities */
 export * from './logger/logger';
 export * from './logger/colors';
+
+export type { Config } from './config/config.type';
