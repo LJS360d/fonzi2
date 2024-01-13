@@ -19,7 +19,7 @@ export class Fonzi2Server {
 		protected data: Fonzi2ServerData
 	) {
 		this.app = express();
-    this.httpServer = http.createServer(this.app);
+		this.httpServer = http.createServer(this.app);
 		this.app.use(express.static(resolve(__dirname, 'public')));
 		this.app.set('view engine', 'ejs');
 		this.app.set('views', resolve(__dirname, 'views'));
@@ -32,7 +32,7 @@ export class Fonzi2Server {
 	}
 
 	start() {
-    this.app.get('/', this.authorize.bind(this));
+		this.app.get('/', this.authorize.bind(this));
 		this.app.get('/unauthorized', this.unauthorized.bind(this));
 		this.app.get('/notfound', this.notFound.bind(this));
 		this.app.get('/login', this.login.bind(this));

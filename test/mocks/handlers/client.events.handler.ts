@@ -15,17 +15,17 @@ export default class ClientEventsHandler extends Handler {
 		Logger.info(`Logged in as ${this.client?.user?.tag}!`);
 
 		const loading = Logger.loading('Started refreshing application (/) commands.');
-      try {
-        await this.client?.application?.commands.set(this.commands);
-        loading.success('Successfully reloaded application (/) commands.');
-        assert.equal(this.client?.user?.displayName, "Fonzi 2");
-        assert.notEqual(this.client?.application?.commands, undefined);
-      } catch (err: any) {
-        loading.fail('Failed to reload application (/) commands.');
-        Logger.error(err);
-        assert.equal(false, true);
-      } finally {
-        return;
-      }
+		try {
+			await this.client?.application?.commands.set(this.commands);
+			loading.success('Successfully reloaded application (/) commands.');
+			assert.equal(this.client?.user?.displayName, 'Fonzi 2');
+			assert.notEqual(this.client?.application?.commands, undefined);
+		} catch (err: any) {
+			loading.fail('Failed to reload application (/) commands.');
+			Logger.error(err);
+			assert.equal(false, true);
+		} finally {
+			return;
+		}
 	}
 }

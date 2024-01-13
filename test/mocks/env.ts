@@ -17,7 +17,7 @@ const env = {
 	// * the current environment (default: development)
 	NODE_ENV: process.env['NODE_ENV'] || 'development',
 
-  // * [TEST]
-  TEST_ACCESS_TOKEN: process.env['TEST_ACCESS_TOKEN']!,
+	// * [TEST]
+	TEST_ACCESS_TOKEN: process.env['TEST_ACCESS_TOKEN']!,
 } as const;
 export default env;

@@ -4,4 +4,4 @@ export type Fonzi2ServerData = {
 	version: string;
 	oauth2url: string;
 	port?: number;
-}
+};

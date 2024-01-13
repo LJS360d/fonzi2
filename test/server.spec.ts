@@ -36,5 +36,5 @@ test('Server - GET /dashboard -> Unauthorized', async () => {
 	const dashboardRes = await http.get('/dashboard');
 	expect(dashboardRes.status).eq(200);
 	expect(dashboardRes.headers['content-type']).eq('text/html; charset=utf-8');
-  expect(dashboardRes.data).contains('Unauthorized');
+	expect(dashboardRes.data).contains('Unauthorized');
 });
