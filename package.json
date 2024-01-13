@@ -1,6 +1,6 @@
 {
 	"name": "fonzi2",
-	"version": "0.6.0",
+	"version": "1.0.0",
 	"description": "Discord bot starter kit",
 	"type": "module",
 	"engines": {

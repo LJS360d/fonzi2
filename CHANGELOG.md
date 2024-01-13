@@ -1,5 +1,15 @@
 # fonzi2
 
+## 1.0.0
+
+### Major Changes
+
+- af71291: implemented tests for major features, configurable package ahoy
+
+### Patch Changes
+
+- 38d7755: fix lint and update CI
+
 ## 0.6.0
 
 ### Minor Changes
