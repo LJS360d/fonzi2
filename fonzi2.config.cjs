@@ -1,4 +1,4 @@
-/** @type {import('./dist/lib').Config} */
+/** @type {import('./src').Config} */
 module.exports = {
   logger: {
     remote: {

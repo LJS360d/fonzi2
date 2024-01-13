@@ -18,11 +18,14 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "types": [
-      "node"
+      "node",
+      "chai",
+      "vitest"
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "test/**/*.ts"
   ],
   "exclude": [
     "node_modules"

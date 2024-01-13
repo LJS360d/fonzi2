@@ -2,20 +2,21 @@
 	"name": "fonzi2",
 	"version": "0.6.0",
 	"description": "Discord bot starter kit",
-	"type": "commonjs",
+	"type": "module",
 	"engines": {
 		"node": ">=18"
 	},
-	"packageManager": "pnpm@8.12.1",
+	"packageManager": "pnpm@8.14.1",
 	"files": [
 		"dist"
 	],
-	"main": "dist/lib/index.js",
-	"module": "dist/lib/index.mjs",
-	"types": "dist/lib/index.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
 	"scripts": {
+		"test": "vitest",
 		"build": "rimraf dist && tsup --config tsup.config.ts && pnpm copyfiles",
-		"copyfiles": "copyfiles -u 1 views/**/* dist/lib/views && copyfiles -u 1 public/**/* dist/lib/public",
+		"copyfiles": "copyfiles -u 1 views/**/* dist/views && copyfiles -u 1 public/**/* dist/public",
 		"release": "pnpm build && changeset publish",
 		"lint": "prettier --write . && tsc"
 	},
@@ -27,7 +28,7 @@
 	"author": "ljs360d",
 	"license": "MIT",
 	"dependencies": {
-		"axios": "^1.6.3",
+		"axios": "^1.6.5",
 		"cookie-session": "^2.0.0",
 		"discord.js": "^14.14.1",
 		"dotenv": "^16.3.1",
@@ -36,27 +37,23 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.1",
+		"@types/chai": "^4.3.11",
 		"@types/cookie-session": "^2.0.48",
 		"@types/express": "^4.17.21",
-		"@types/node": "^20.10.6",
+		"@types/node": "^20.11.0",
+		"chai": "^5.0.0",
 		"copyfiles": "^2.4.1",
-		"cross-env": "^7.0.3",
-		"prettier": "^3.1.1",
+		"prettier": "^3.2.1",
 		"reflect-metadata": "^0.2.1",
 		"rimraf": "^5.0.5",
-		"simple-git-hooks": "^2.9.0",
-		"ts-node": "^10.9.2",
-		"ts-node-dev": "^2.0.0",
 		"tsup": "^8.0.1",
-		"typescript": "^5.3.3"
+		"typescript": "^5.3.3",
+		"vitest": "^1.2.0"
 	},
 	"changeset": {
 		"defaultBranch": "master"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"simple-git-hooks": {
-		"pre-commit": "pnpm lint && git add ."
 	}
 }
