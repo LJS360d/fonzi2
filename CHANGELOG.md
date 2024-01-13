@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.0.1
+
+### Patch Changes
+
+- 686b32f: fix module option
+
 ## 1.0.0
 
 ### Major Changes
