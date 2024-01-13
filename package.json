@@ -2,7 +2,7 @@
 	"name": "fonzi2",
 	"version": "1.0.0",
 	"description": "Discord bot starter kit",
-	"type": "module",
+	"type": "commonjs",
 	"engines": {
 		"node": ">=18"
 	},
@@ -18,7 +18,7 @@
 		"build": "rimraf dist && tsup --config tsup.config.ts && pnpm copyfiles",
 		"copyfiles": "copyfiles -u 1 views/**/* dist/views && copyfiles -u 1 public/**/* dist/public",
 		"release": "pnpm build && changeset publish",
-		"lint": "prettier --write ./src/**/*.ts && tsc "
+		"lint": "prettier --write ./src/**/*.ts && tsc"
 	},
 	"keywords": [
 		"discord",
