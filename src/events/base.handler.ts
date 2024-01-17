@@ -2,7 +2,9 @@ import { Client } from 'discord.js';
 
 export abstract class Handler {
 	public abstract readonly type: HandlerType;
-	public client?: Client;
+	public client: Client<true>;
+
+  constructor() {}
 }
 
 export enum HandlerType {

@@ -4,7 +4,7 @@ import {
 	Partials,
 	ActivityType,
 } from 'discord.js';
-import { Logger } from '../../dist';
+import { Logger } from '../../src';
 
 const options: ClientOptions = {
 	// allowedMentions: { parse: ['users', 'roles'] },

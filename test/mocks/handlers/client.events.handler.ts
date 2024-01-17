@@ -1,5 +1,5 @@
 import { ApplicationCommandData } from 'discord.js';
-import { ClientEvent, Handler, HandlerType, Logger } from '../../../dist';
+import { ClientEvent, Handler, HandlerType, Logger } from '../../../src';
 import { assert } from 'vitest';
 
 export default class ClientEventsHandler extends Handler {
