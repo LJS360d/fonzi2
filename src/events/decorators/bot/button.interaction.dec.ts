@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Handler } from '../base.handler';
+import { Handler } from '../../base.handler';
 
 type ButtonInteractionMetadata = {
 	id: string;

@@ -8,10 +8,10 @@ export * from './types/server.data';
 export * from './components/action-row';
 export * from './components/buttons';
 /* @Decorators */
-export * from './events/decorators/button.interaction.dec';
-export * from './events/decorators/client.event.dec';
-export * from './events/decorators/command.interaction.dec';
-export * from './events/decorators/message.dec';
+export * from './events/decorators/bot/button.interaction.dec';
+export * from './events/decorators/bot/client.event.dec';
+export * from './events/decorators/bot/command.interaction.dec';
+export * from './events/decorators/bot/message.dec';
 /* Utilities */
 export * from './logger/logger';
 export * from './logger/colors';
