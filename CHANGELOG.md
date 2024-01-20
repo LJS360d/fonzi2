@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.0.3
+
+### Patch Changes
+
+- 52e22e7: remove notfound middleware
+
 ## 1.0.2
 
 ### Patch Changes
