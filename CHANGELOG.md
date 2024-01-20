@@ -1,5 +1,12 @@
 # fonzi2
 
+## 1.0.2
+
+### Patch Changes
+
+- 873d78b: fix: client ready infer on injection in base handler
+- e71dfd7: decorators separation, better client injection into handlers
+
 ## 1.0.1
 
 ### Patch Changes
