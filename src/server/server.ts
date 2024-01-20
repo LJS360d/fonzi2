@@ -39,7 +39,7 @@ export class Fonzi2Server {
 		this.app.post('/login', this.loginPost.bind(this));
 		this.app.get('/dashboard', this.dashboard.bind(this));
 
-		this.app.use(this.notFoundMiddleware.bind(this));
+		// this.app.use(this.notFoundMiddleware.bind(this));
 		this.httpServer.listen(this.data.port, this.logServerStatus.bind(this));
 	}
 
