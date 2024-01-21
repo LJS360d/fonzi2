@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.1.1
+
+### Patch Changes
+
+- 647af81: fix server tests change tsup config to fix views resolve
+
 ## 1.1.0
 
 ### Minor Changes
