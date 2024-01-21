@@ -1,5 +1,15 @@
 # fonzi2
 
+## 1.1.0
+
+### Minor Changes
+
+- f4b4ad3: configurable server
+
+### Patch Changes
+
+- b063e06: remove old server data obj
+
 ## 1.0.3
 
 ### Patch Changes
