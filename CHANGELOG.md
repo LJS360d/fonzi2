@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.1.2
+
+### Patch Changes
+
+- 12cbfa0: definitive fix views resolve, tsup config
+
 ## 1.1.1
 
 ### Patch Changes
