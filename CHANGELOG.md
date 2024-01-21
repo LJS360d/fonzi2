@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.1.3
+
+### Patch Changes
+
+- 52c9fe6: fix lib entry
+
 ## 1.1.2
 
 ### Patch Changes
