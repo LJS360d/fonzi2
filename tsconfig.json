@@ -19,6 +19,6 @@
 		"isolatedModules": true,
 		"types": ["node", "chai", "vitest"]
 	},
-	"include": ["src/**/*.ts"],
+	"include": ["src/**/*.ts", "src/types/discord.user.info.ts"],
 	"exclude": ["node_modules"]
 }

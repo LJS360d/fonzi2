@@ -5,7 +5,7 @@ module.exports = {
 			enabled: false,
 		},
 		file: {
-			enabled: false,
+			enabled: true,
 		},
 	},
 };

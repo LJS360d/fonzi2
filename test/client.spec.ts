@@ -1,5 +1,5 @@
 import { assert, test } from 'vitest';
-import { Fonzi2Client, Logger, getRegisteredCommands } from '../dist';
+import { Fonzi2Client, Logger, getRegisteredCommands } from '../src';
 import env from './mocks/env';
 import ClientEventsHandler from './mocks/handlers/client.events.handler';
 import options from './mocks/options';

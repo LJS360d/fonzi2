@@ -9,9 +9,8 @@ import {
 	textColorReplaceMap,
 	textStyleReplaceMap,
 } from './colors';
-import { getLoggerConfig } from './config';
+import { LoggerLevel, getLoggerConfig } from './config';
 import { capitalize, now } from './utils';
-import { LoggerLevel } from '../config/config.type';
 
 export class Logger {
 	protected static readonly config = getLoggerConfig();

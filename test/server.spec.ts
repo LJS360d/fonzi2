@@ -1,6 +1,8 @@
 import { Axios } from 'axios';
+import { Client } from 'discord.js';
 import { beforeAll, expect, test } from 'vitest';
-import { Fonzi2Client, Fonzi2Server } from '../dist';
+import { Fonzi2Client, Fonzi2Server } from '../src';
+import { ConfigLoader } from '../src/config/config.loader';
 import env from './mocks/env';
 import options from './mocks/options';
 
@@ -9,15 +11,13 @@ let server: Fonzi2Server;
 let http: Axios;
 
 beforeAll(async () => {
+  const config = ConfigLoader.loadConfig();
+	expect(config).to.be.an('object');
+
 	await new Promise<void>(async (resolve) => {
-		client = new Fonzi2Client(env.TOKEN, options, []);
-		server = new Fonzi2Server(client, {
-			inviteLink: env.INVITE_LINK,
-			oauth2url: env.OAUTH2_URL,
-			port: env.PORT,
-			ownerIds: env.OWNER_IDS,
-			version: env.VERSION,
-		});
+    client = new Fonzi2Client(env.TOKEN, options, []);
+		server = new Fonzi2Server(client as Client<true>);
+    expect(server.config).to.deep.equal(config.server);
 		server.start();
 		http = new Axios({
 			baseURL: `http://localhost:${env.PORT}`,
@@ -26,10 +26,25 @@ beforeAll(async () => {
 	});
 });
 
+test('Server - GET / (Discord auth)', async () => {
+	const loginRes = await http.get('/');
+	expect(loginRes.status).eq(200);
+  expect(loginRes.data).contains('Discord');
+	expect(loginRes.headers['content-type']).eq('text/html');
+});
+
+
 test('Server - GET /login', async () => {
-	const loginPostRes = await http.get('/login');
-	expect(loginPostRes.status).eq(200);
-	expect(loginPostRes.headers['content-type']).eq('text/html; charset=utf-8');
+	const loginRes = await http.get('/login');
+	expect(loginRes.status).eq(200);
+	expect(loginRes.headers['content-type']).eq('text/html; charset=utf-8');
+});
+
+test('Server - GET /notfound (redirect)', async () => {
+	const loginRes = await http.get('/jibberish');
+	expect(loginRes.status).eq(200);
+	expect(loginRes.headers['content-type']).eq('text/html; charset=utf-8');
+  expect(loginRes.data).contains('404');
 });
 
 test('Server - GET /dashboard -> Unauthorized', async () => {

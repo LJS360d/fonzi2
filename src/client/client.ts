@@ -1,9 +1,9 @@
 import { Client, ClientOptions, Message } from 'discord.js';
-import { Handler } from '../events/base.handler';
-import { getButtonsMetadata } from '../events/decorators/bot/button.interaction.dec';
-import { getEventsMetadata } from '../events/decorators/bot/client.event.dec';
-import { getCommandsMetadata } from '../events/decorators/bot/command.interaction.dec';
-import { getMessageEventsMetadata } from '../events/decorators/bot/message.dec';
+import { Handler } from './base.handler';
+import { getButtonsMetadata } from './decorators/button.interaction.dec';
+import { getEventsMetadata } from './decorators/client.event.dec';
+import { getCommandsMetadata } from './decorators/command.interaction.dec';
+import { getMessageEventsMetadata } from './decorators/message.dec';
 import { Logger } from '../logger/logger';
 
 export class Fonzi2Client extends Client {
