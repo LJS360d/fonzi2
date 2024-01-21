@@ -1,8 +1,8 @@
 import { Axios } from 'axios';
 import { Client } from 'discord.js';
 import { beforeAll, expect, test } from 'vitest';
-import { Fonzi2Client, Fonzi2Server } from '../src';
-import { ConfigLoader } from '../src/config/config.loader';
+import { Fonzi2Client, Fonzi2Server } from '../dist/lib';
+import { ConfigLoader } from '../dist/lib/config/config.loader';
 import env from './mocks/env';
 import options from './mocks/options';
 

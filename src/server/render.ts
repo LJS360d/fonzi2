@@ -1,1 +1,1 @@
-export function render() {}
+// TODO ejs render helper
