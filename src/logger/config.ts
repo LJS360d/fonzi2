@@ -19,7 +19,6 @@ export type LoggerConfig = Readonly<{
 export type LoggerLevels = 'all' | LoggerLevel[];
 export type LoggerLevel = 'DEBUG' | 'INFO' | 'WARN' | 'ERROR' | 'TRACE' | 'LOAD';
 
-
 export function getLoggerConfig(): LoggerConfig {
 	const config = ConfigLoader.loadConfig();
 	return config.logger;

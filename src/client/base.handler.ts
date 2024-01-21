@@ -4,7 +4,7 @@ export abstract class Handler {
 	public abstract readonly type: HandlerType;
 	public client: Client<true>;
 
-  constructor() {}
+	constructor() {}
 }
 
 export enum HandlerType {

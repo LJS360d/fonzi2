@@ -1,5 +1,1 @@
-
-
-export function render() {
-
-}
+export function render() {}

@@ -2,10 +2,10 @@ import { ConfigLoader } from '../config/config.loader';
 
 export type ServerConfig = {
 	dashboardRoute: string;
-  discordAuthRoute: string;
+	discordAuthRoute: string;
 	loginRoute: string;
 	loginData: {
-    redirectRoute: string;
+		redirectRoute: string;
 		ownerIds: string[];
 		oauth2url: string;
 	};

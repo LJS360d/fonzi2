@@ -14,7 +14,7 @@ export class Fonzi2Client extends Client {
 		const commandInteractionHandlers: Handler[] = [];
 		const buttonInteractionHandlers: Handler[] = [];
 		void this.login(token);
-    handlers.forEach((handler) => {
+		handlers.forEach((handler) => {
 			handler.client = this as Client<true>;
 			switch (handler.type) {
 				case 'client-event':
