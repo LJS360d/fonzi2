@@ -18,11 +18,9 @@ export class Fonzi2Server {
 	constructor(protected client: Client<true>) {
 		this.app = express();
 		this.httpServer = http.createServer(this.app);
-		//this.app.use(express.static(resolve(process.cwd(), 'public')));
-		this.app.use(express.static(resolve(__dirname, '../../public')));
+		this.app.use(express.static(resolve(__dirname, 'public')));
 		this.app.set('view engine', 'ejs');
-		// this.app.set('views', resolve(process.cwd(), 'views'));
-		this.app.set('views', resolve(__dirname, '../../views'));
+		this.app.set('views', resolve(__dirname, 'views'));
 		this.app.use(express.json());
 		const secret = crypto
 			.createHash('sha3-256')

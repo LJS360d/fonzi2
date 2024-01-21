@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
 	entry: ['src/'],
-	outDir: 'dist/lib',
+	outDir: 'dist',
 	splitting: false,
 	sourcemap: true,
 	dts: true,
