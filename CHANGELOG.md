@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.1.4
+
+### Patch Changes
+
+- 2515cde: fix logger not working properly
+
 ## 1.1.3
 
 ### Patch Changes
