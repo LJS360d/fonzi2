@@ -3,10 +3,11 @@ module.exports = {
 	logger: {
 		remote: {
 			enabled: false,
-      levels: ['error', 'warn'],
+      levels: "all",
 		},
 		file: {
-			enabled: false,
+			enabled: true,
+      levels: "all",
 		},
 	},
 };

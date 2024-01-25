@@ -23,12 +23,12 @@ export const DefaultConfig: Config = {
 		pattern: `#gray[%time]$ %color%level$ #white%msg$`,
 		levels: 'all',
 		remote: {
-			enabled: false,
+			enabled: true,
 			webhook: process.env['LOG_WEBHOOK'],
 			levels: 'all',
 		},
 		file: {
-			enabled: false,
+			enabled: true,
 			path: 'logs',
 			levels: 'all',
 		},

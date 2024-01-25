@@ -102,7 +102,7 @@ export class Logger {
 		level: LoggerLevel,
 		color: keyof typeof CC,
 		msg: string | object
-	): void {
+	): void {    
 		if (this.config.levels !== 'all' && !this.config.levels.includes(level)) return;
 
 		if (typeof msg !== 'string') {

@@ -7,12 +7,14 @@ export class ConfigLoader {
 	static defaultConfig: Config = DefaultConfig;
 
 	static loadConfig(path?: string): Config {
-		const extensions = ['json', 'cjs', 'js', 'mjs'];
+		if (this.config) {
+			return this.mergeConfig(this.defaultConfig, this.config);
+		}
+		const extensions = ['cjs', 'js', 'mjs'];
 		for (const extension of extensions) {
 			const modulePath = resolve(path ?? process.cwd(), 'fonzi2.config.' + extension);
 			try {
 				const { default: config } = require(modulePath);
-
 				this.config = config ?? require(modulePath);
 				break;
 			} catch (error) {
