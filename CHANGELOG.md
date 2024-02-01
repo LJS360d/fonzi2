@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.2.0
+
+### Minor Changes
+
+- dc263c3: add role "owner" or "user" to DiscordAuthUserInfo
+
 ## 1.1.4
 
 ### Patch Changes
