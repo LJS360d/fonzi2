@@ -9,6 +9,7 @@ export type DiscordUserInfo = {
 	banner: string | null;
 	accent_color: number;
 	global_name: string;
+  role: "owner" | "user";
 	avatar_decoration_data: any | null; // TODO get proper type inference
 	banner_color: string;
 	mfa_enabled: boolean;
