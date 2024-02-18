@@ -1,6 +1,19 @@
 # Fonzi2 - Discord Bot Framework
-
-Fonzi2 is an incredibly simple and blazingly fast Discord bot framework built using TypeScript and Discord.js. It provides a structured architecture with automatic command registration, event handling, and OAuth2 server-side functionality.
+<p>
+		<a href="https://discord.gg/tyrj7wte5b">
+    <img src="https://img.shields.io/discord/1122938014637756486?color=5865F2&logo=discord&logoColor=white" alt="Discord server" />
+    </a>
+		<a href="https://www.npmjs.com/package/fonzi2">
+    <img src="https://img.shields.io/npm/v/fonzi2.svg?maxAge=3600" alt="package version" />
+    </a>
+		<a href="https://www.npmjs.com/package/fonzi2">
+    <img src="https://img.shields.io/npm/dt/fonzi2.svg?maxAge=3600" alt="npm downloads" />
+    </a>
+    <a href="https://github.com/LJS360d/fonzi2/actions">
+    <img src="https://github.com/LJS360d/fonzi2/actions/workflows/build.yml/badge.svg" alt="Tests status" />
+    </a>
+	</p>
+Fonzi2 is an incredibly simple and fast Discord bot framework focused on a better dev experience, built using TypeScript and Discord.js. It provides a structured architecture with automatic command registration, event handling, and OAuth2 server-side functionality.
 
 ## Table of Contents
 
@@ -9,11 +22,11 @@ Fonzi2 is an incredibly simple and blazingly fast Discord bot framework built us
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Quick Start](#quick-start)
+  - [Quick Start](#required-steps)
 - [Contributing](#contributing)
 - [Deployment](#deployment)
   - [Serverless](#serverless-replit)
-  - [DEDI](#dedicated-server-pm2)
+  - [Dedicated Server](#dedicated-server-pm2)
 
 ## Introduction
 
@@ -26,36 +39,27 @@ Developing a robust and scalable Discord bot can be a daunting task, especially 
 - Cookie-session management for secure user sessions
 - OAuth2 server-side functionality for user authentication and authorization
 - Lightweight and extensible framework to adapt to various bot requirements
-- Centralized on Discord
+- Centralized on Discord API
 
 ## Getting Started
-
-### Prerequisites
-
-Before you begin, ensure you have the following prerequisites installed:
-
-- Node.js (>=18.12.1)
-- npm (>=9.1.1)
-
-For this purpose i reccomend using nvm (Node Version Manager).
+The package has been created and tested with **Node.js Version 18 and 20**.
+<br>
+**pnpm 8.15.3** was used as the package manager
+<br>
+I reccomend using nvm (Node Version Manager).
 
 ### Installation
-
-1. Clone or fork the Fonzi2 repository from GitHub:
-
-2. Navigate into the project directory:
-
    ```bash
-   cd fonzi2
+   npm install fonzi2 discord.js 
    ```
 
-3. Install the project dependencies:
+### Other packages you should install
+- for customizing the SSR
+  ```bash
+   npm install express ejs cookie-session
+  ```
 
-   ```bash
-   npm install
-   ```
-
-### Quick Start
+### Required steps
 
 1. Create a new application in the [Discord Developer Portal](https://discord.com/developers/applications).
 
@@ -66,31 +70,12 @@ For this purpose i reccomend using nvm (Node Version Manager).
 
 4. [ServerSide OAuth2] Generate an OAuth2 URL using the OAuth2 URL Generator in the Discord Developer Portal. Select the "identify" scope and `http://localhost:<port>/login` as your redirect uri for development and **CHANGE `response_type` to `token`**.
 
-   - For production: you will need to create a new OAuth2 url using the hostname of your deployment (ex. https://fonzi2.ljs360d.repl.co/login as the redirect uri), remember to **CHANGE `response_type` to `token`**.
-
-5. Rename the `common.env` file to just `.env` in the project root directory and fill in at least the required properties
-
-6. Configure the bot intents in the `src\client\options.ts` file. Select only the necessary intents to improve bot efficiency and security.
-
-7. Start the bot in development mode:
-
-   ```bash
-   npm run dev
-   ```
-
-This will start the bot and serverside in development mode, allowing you to test and debug your commands and functionalities.
+   - For production: you will need to create a new OAuth2 url using the hostname of your deployment (ex. https://fonzi2.railway.app/login as the redirect uri), remember to **CHANGE `response_type` to `token`**.
 
 ## Contributing
 
 I welcome contributions to the project. Feel free to open issues or submit pull requests with improvements or bug fixes.
 
-### Todo List
-
-- Database integration with SQL and NoSQL databases
-- Discord DB pre-integration (store data in channels)
-- Firebase integration instead of replit
-- OAuth2 with google trough firebase
-- Serverside Frontend improvements
 
 ## Deployment
 
@@ -149,18 +134,15 @@ You can host your bot on a dedicated server using the [pm2 package](https://pm2.
    pm2 show fonzi2
    ```
 
-### Serverless ([Replit](https://replit.com))
+### Serverless ([Railway](https://railway.app))
 
-By far the simplest way to host a Discord bot for **free**, this approach is excellent for small to medium-sized applications with minimal resource requirements, but theres also premium options for more demanding apps.
+By far the simplest way to host a Discord bot for **free***, this approach is excellent for small to medium-sized applications with minimal resource requirements, but theres also premium options for more demanding apps.
 
-1. Sign in to [Replit](https://replit.com) with GitHub.
-   - Click on "Create repl" to create a new repl.
-   - Click on "Import from GitHub" and select your bot repository.
-2. **Setup secrets**
-   - Instead of creating a `.env` file, on replit, you have to specify your environment variables in the **Secrets** tool
-   - Just like with the `.env` you will need a `TOKEN` and a `LOG_WEBHOOK` secrets for the bot to work and the OAuth2 Secrets for the serverside dashboard
-   - For this purpose there is an npm script that you should run before deployment: `npm run build:secret` that will parse your .env into a JSON file to be quickly inserted into the replit secrets, but remember to change the serverside OAuth2 url to the production one.
-3. Start the Bot
-   - Click on the "Start" button in the toolbar
-4. Keep the Repl Alive:
-   - To ensure your bot runs continuously, use a service like [UptimeRobot](https://uptimerobot.com) to ping your Repl every few minutes.
+1. Sign in to [Railway](https://railway.app) with GitHub.
+   - Click on "Create project" to create a new project.
+   - Select "Deploy from GitHub repo" and select your bot repository.
+2. **Setup env**
+   - **DO NOT** push the `.env` file to your repo as it contains sensible information about your bot that would become public, instead create **Service Variables** on railway, you can just copy and paste your existing `.env`, but make sure to change the necesarry variables to their production counterparts.
+
+3. There is no step 3, you are done!
+   - Whenever you push to the default branch in your repo railway will fetch the changes and redeploy the bot, it goes without saying that the bot will stay online 24/7 without any external needs
