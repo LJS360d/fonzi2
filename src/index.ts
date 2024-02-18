@@ -7,6 +7,7 @@ export * from './server/config';
 /* Embed Components */
 export * from './components/action-row';
 export * from './components/buttons';
+export * from './components/pageable';
 /* @Decorators */
 export * from './client/decorators/button.interaction.dec';
 export * from './client/decorators/client.event.dec';
