@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.3.0
+
+### Minor Changes
+
+- 6c6dfb1: add pageable utilities
+
 ## 1.2.0
 
 ### Minor Changes
