@@ -49,9 +49,6 @@ devDependencies:
   express:
     specifier: ^4.18.2
     version: 4.18.2
-  prettier:
-    specifier: ^3.2.1
-    version: 3.2.1
   reflect-metadata:
     specifier: ^0.2.1
     version: 0.2.1
@@ -3117,12 +3114,6 @@ packages:
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
-    hasBin: true
-    dev: true
-
-  /prettier@3.2.1:
-    resolution: {integrity: sha512-qSUWshj1IobVbKc226Gw2pync27t0Kf0EdufZa9j7uBSJay1CC+B3K5lAAZoqgX3ASiKuWsk6OmzKRetXNObWg==}
-    engines: {node: '>=14'}
     hasBin: true
     dev: true
 

@@ -1,58 +1,62 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
-  "javascript": {
-    "formatter": {
-      "enabled": true,
-      "arrowParentheses": "always",
-      "bracketSpacing": true,
-      "trailingComma": "es5",
-      "bracketSameLine": true,
-      "quoteStyle": "single",
-      "jsxQuoteStyle": "single",
-      "quoteProperties": "asNeeded",
-      "semicolons": "always"
-    }
-  },
-  "json": {
-    "parser": {
-      "allowComments": true,
-      "allowTrailingCommas": true
-    },
-    "formatter": {
-      "enabled": true,
-      "indentWidth": 1
-    }
+ "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
+ "organizeImports": {
+  "enabled": false
+ },
+ "javascript": {
+  "formatter": {
+   "enabled": true,
+   "arrowParentheses": "always",
+   "bracketSpacing": true,
+   "trailingComma": "es5",
+   "bracketSameLine": true,
+   "quoteStyle": "single",
+   "jsxQuoteStyle": "single",
+   "quoteProperties": "asNeeded",
+   "semicolons": "always"
+  }
+ },
+ "json": {
+  "parser": {
+   "allowComments": true,
+   "allowTrailingCommas": true
   },
   "formatter": {
-    "enabled": true,
-    "formatWithErrors": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 100,
-    "lineEnding": "lf"
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "style": {
-        "noNonNullAssertion": "warn"
-      },
-      "suspicious": {
-        "noArrayIndexKey": "off",
-        "noExplicitAny": "off"
-      },
-      "complexity": {
-        "useLiteralKeys": "off",
-        "noForEach": "off",
-        "noStaticOnlyClass": "off"
-      },
-      "security": {
-        "recommended": true
-      }
-    }
+   "enabled": true,
+   "indentWidth": 1
   }
+ },
+ "formatter": {
+  "enabled": true,
+  "formatWithErrors": true,
+  "indentStyle": "space",
+  "indentWidth": 2,
+  "lineWidth": 100,
+  "lineEnding": "lf"
+ },
+ "linter": {
+  "enabled": true,
+  "rules": {
+   "recommended": true,
+   "style": {
+    "noNonNullAssertion": "off",
+    "noParameterAssign": "off"
+   },
+   "suspicious": {
+    "noArrayIndexKey": "off",
+    "noExplicitAny": "off",
+    "noAsyncPromiseExecutor": "off",
+    "noControlCharactersInRegex": "off"
+   },
+   "complexity": {
+    "useLiteralKeys": "off",
+    "noForEach": "off",
+    "noStaticOnlyClass": "off",
+    "noBannedTypes": "off"
+   },
+   "security": {
+    "recommended": true
+   }
+  }
+ }
 }
