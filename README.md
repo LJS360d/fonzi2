@@ -44,7 +44,7 @@ Developing a robust and scalable Discord bot can be a daunting task, especially 
 ## Getting Started
 The package has been created and tested with **Node.js Version 18 and 20**.
 <br>
-**pnpm 8.15.3** was used as the package manager
+**pnpm >= 8.14** was used as the package manager
 <br>
 I reccomend using nvm (Node Version Manager).
 
