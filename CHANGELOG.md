@@ -1,5 +1,13 @@
 # fonzi2
 
+## 1.4.0
+
+### Minor Changes
+
+- 9458892: add: Server Requests decorators
+  - added usage of Request decorators with ServerController class
+  - changed "Handler" for client to "DiscordHandler"
+
 ## 1.3.0
 
 ### Minor Changes
