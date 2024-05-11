@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.4.1
+
+### Patch Changes
+
+- 0c5134a: update deps
+
 ## 1.4.0
 
 ### Minor Changes
