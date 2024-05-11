@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import { ClientEvents } from 'discord.js';
-import { DiscordHandler, HandlerType } from '../base.handler';
+import type { ClientEvents } from 'discord.js';
+import { type DiscordHandler, HandlerType } from '../base.handler';
 
 type ClientEvent = keyof Omit<ClientEvents, 'messageCreate' | 'debug'>;
 

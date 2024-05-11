@@ -1,10 +1,10 @@
 import {
-  APIActionRowComponent,
-  APIMessageActionRowComponent,
+  type APIActionRowComponent,
+  type APIMessageActionRowComponent,
   ActionRowBuilder,
-  AnyComponentBuilder,
-  JSONEncodable,
-  RestOrArray,
+  type AnyComponentBuilder,
+  type JSONEncodable,
+  type RestOrArray,
 } from 'discord.js';
 
 export class ActionRow {

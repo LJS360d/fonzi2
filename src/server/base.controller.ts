@@ -1,5 +1,5 @@
-import { Client } from 'discord.js';
-import express from 'express';
+import type { Client } from 'discord.js';
+import type express from 'express';
 
 export abstract class ServerController {
   public app: express.Application;

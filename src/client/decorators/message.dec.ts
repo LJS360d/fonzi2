@@ -1,6 +1,6 @@
 import { ChannelType } from 'discord.js';
 import 'reflect-metadata';
-import { DiscordHandler, HandlerType } from '../base.handler';
+import { type DiscordHandler, HandlerType } from '../base.handler';
 
 type MessageType = keyof typeof ChannelType;
 

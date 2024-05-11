@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import { RequestHandler } from 'express';
-import { ServerController } from '../base.controller';
+import type { RequestHandler } from 'express';
+import type { ServerController } from '../base.controller';
 
 export enum RequestMethod {
   GET = 'get',

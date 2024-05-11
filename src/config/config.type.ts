@@ -1,5 +1,5 @@
-import { LoggerConfig } from '../logger/config';
-import { ServerConfig } from '../server/config';
+import type { LoggerConfig } from '../logger/config';
+import type { ServerConfig } from '../server/config';
 
 export interface Config {
   logger: LoggerConfig;

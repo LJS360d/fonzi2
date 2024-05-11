@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { EmbedBuilder } from 'discord.js';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   CC,
   DC,
@@ -9,7 +9,7 @@ import {
   textColorReplaceMap,
   textStyleReplaceMap,
 } from './colors';
-import { LoggerLevel, getLoggerConfig } from './config';
+import { type LoggerLevel, getLoggerConfig } from './config';
 import { capitalize, now } from './utils';
 
 export class Logger {

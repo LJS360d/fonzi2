@@ -1,6 +1,6 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import { DefaultConfig } from './config.default';
-import { Config } from './config.type';
+import type { Config } from './config.type';
 
 export class ConfigLoader {
   static config: Config;

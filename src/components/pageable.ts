@@ -2,13 +2,13 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  ChatInputCommandInteraction,
-  Embed,
+  type ChatInputCommandInteraction,
+  type Embed,
   EmbedBuilder,
-  Message,
-  MessageComponentInteraction,
-  MessageReaction,
-  User,
+  type Message,
+  type MessageComponentInteraction,
+  type MessageReaction,
+  type User,
 } from 'discord.js';
 
 export async function paginateMessage(message: Message, embeds: Embed[]) {

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import { ApplicationCommandData } from 'discord.js';
-import { DiscordHandler, HandlerType } from '../base.handler';
+import type { ApplicationCommandData } from 'discord.js';
+import { type DiscordHandler, HandlerType } from '../base.handler';
 
 type CommandInteractionMetadata = {
   name: string;

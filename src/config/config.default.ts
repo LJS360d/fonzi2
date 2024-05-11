@@ -1,4 +1,4 @@
-import { Config } from './config.type';
+import type { Config } from './config.type';
 import 'dotenv/config';
 export const DefaultConfig: Config = {
   server: {

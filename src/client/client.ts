@@ -1,5 +1,5 @@
-import { Client, ClientOptions, Message } from 'discord.js';
-import { DiscordHandler, HandlerType } from './base.handler';
+import { Client, type ClientOptions, type Message } from 'discord.js';
+import { type DiscordHandler, HandlerType } from './base.handler';
 import { getButtonsMetadata } from './decorators/button.interaction.dec';
 import { getEventsMetadata } from './decorators/client.event.dec';
 import { getCommandsMetadata } from './decorators/command.interaction.dec';

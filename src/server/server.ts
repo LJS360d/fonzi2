@@ -1,18 +1,18 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 import session from 'cookie-session';
-import crypto from 'crypto';
-import { Client } from 'discord.js';
+import crypto from 'node:crypto';
+import type { Client } from 'discord.js';
 import 'dotenv/config';
-import express, { NextFunction, type Request, type Response } from 'express';
-import http from 'http';
-import { AddressInfo } from 'net';
-import { resolve } from 'path';
+import express, { type NextFunction, type Request, type Response } from 'express';
+import http from 'node:http';
+import type { AddressInfo } from 'node:net';
+import { resolve } from 'node:path';
 import { getRegisteredCommands } from '../client/decorators/command.interaction.dec';
 import { Logger } from '../logger/logger';
-import { DiscordUserInfo } from '../types/discord.user.info.js';
-import { ServerController } from './base.controller';
+import type { DiscordUserInfo } from '../types/discord.user.info.js';
+import type { ServerController } from './base.controller';
 import { getServerConfig } from './config';
-import { RouteDefinitionMetadata, getRoutesMetadata } from './decorators/routing.dec';
+import { type RouteDefinitionMetadata, getRoutesMetadata } from './decorators/routing.dec';
 export class Fonzi2Server {
   public readonly startTime = Date.now();
   protected readonly app: express.Application;

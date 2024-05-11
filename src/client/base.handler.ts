@@ -1,4 +1,4 @@
-import { Client } from 'discord.js';
+import type { Client } from 'discord.js';
 
 export abstract class DiscordHandler {
   public abstract readonly type: HandlerType;
