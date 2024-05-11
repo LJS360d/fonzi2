@@ -1,8 +1,8 @@
 import { ApplicationCommandData } from 'discord.js';
-import { ClientEvent, Handler, HandlerType, Logger } from '../../../src';
+import { ClientEvent, DiscordHandler, HandlerType, Logger } from '../../../dist';
 import { assert } from 'vitest';
 
-export default class ClientEventsHandler extends Handler {
+export default class ClientEventsHandler extends DiscordHandler {
   public readonly type = HandlerType.clientEvent;
 
   constructor(private commands: ApplicationCommandData[]) {

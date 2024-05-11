@@ -1,12 +1,12 @@
 import 'reflect-metadata';
-import { Handler } from '../base.handler';
+import { DiscordHandler, HandlerType } from '../base.handler';
 
 type ButtonInteractionMetadata = {
   id: string;
   method: Function;
 };
 
-const buttonsKey = Symbol('button-interaction');
+const buttonsKey = Symbol(HandlerType.buttonInteraction);
 
 export function getButtonsMetadata(target: any): ButtonInteractionMetadata[] {
   return Reflect.getOwnMetadata(buttonsKey, Object.getPrototypeOf(target)) || [];
@@ -14,7 +14,7 @@ export function getButtonsMetadata(target: any): ButtonInteractionMetadata[] {
 
 // ? @Button decorator
 export function Button(id: string): MethodDecorator {
-  return (target: Handler, _, descriptor: PropertyDescriptor) => {
+  return (target: DiscordHandler, _, descriptor: PropertyDescriptor) => {
     const method: Function = descriptor.value;
     const buttonMetadata = Reflect.getOwnMetadata(buttonsKey, target) || [];
     buttonMetadata.push({ id, method });

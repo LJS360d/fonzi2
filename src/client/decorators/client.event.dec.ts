@@ -1,21 +1,21 @@
 import 'reflect-metadata';
 import { ClientEvents } from 'discord.js';
-import { Handler } from '../base.handler';
+import { DiscordHandler, HandlerType } from '../base.handler';
 
 type ClientEvent = keyof Omit<ClientEvents, 'messageCreate' | 'debug'>;
 
 export type ClientEventMetadata = { event: ClientEvent; method: Function };
 
-const eventsKey = Symbol('client-event');
+const clientEventsKey = Symbol(HandlerType.clientEvent);
 export function getEventsMetadata(target: any): ClientEventMetadata[] {
-  return Reflect.getOwnMetadata(eventsKey, Object.getPrototypeOf(target)) || [];
+  return Reflect.getOwnMetadata(clientEventsKey, Object.getPrototypeOf(target)) || [];
 }
 
 export function ClientEvent(event: ClientEvent): MethodDecorator {
-  return (target: Handler, _, descriptor: PropertyDescriptor) => {
-    const clientEvents: ClientEventMetadata[] = Reflect.getOwnMetadata(eventsKey, target) || [];
+  return (target: DiscordHandler, _, descriptor: PropertyDescriptor) => {
+    const clientEvents: ClientEventMetadata[] =
+      Reflect.getOwnMetadata(clientEventsKey, target) || [];
     clientEvents.push({ event, method: descriptor.value });
-
-    Reflect.defineMetadata(eventsKey, clientEvents, target);
+    Reflect.defineMetadata(clientEventsKey, clientEvents, target);
   };
 }

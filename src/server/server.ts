@@ -2,21 +2,26 @@ import axios, { AxiosResponse } from 'axios';
 import session from 'cookie-session';
 import crypto from 'crypto';
 import { Client } from 'discord.js';
+import 'dotenv/config';
 import express, { NextFunction, type Request, type Response } from 'express';
 import http from 'http';
 import { AddressInfo } from 'net';
 import { resolve } from 'path';
+import { getRegisteredCommands } from '../client/decorators/command.interaction.dec';
 import { Logger } from '../logger/logger';
 import { DiscordUserInfo } from '../types/discord.user.info.js';
+import { ServerController } from './base.controller';
 import { getServerConfig } from './config';
-import 'dotenv/config';
-import { getRegisteredCommands } from '../client/decorators/command.interaction.dec';
+import { RouteDefinitionMetadata, getRoutesMetadata } from './decorators/routing.dec';
 export class Fonzi2Server {
-  protected readonly startTime = Date.now();
-  readonly app: express.Application;
+  public readonly startTime = Date.now();
+  protected readonly app: express.Application;
   protected readonly httpServer: http.Server;
-  readonly config = getServerConfig();
-  constructor(protected client: Client<true>) {
+  public readonly config = getServerConfig();
+  constructor(
+    protected client: Client<true>,
+    controllers: ServerController[]
+  ) {
     this.app = express();
     this.httpServer = http.createServer(this.app);
     this.app.use(express.static(resolve(__dirname, 'public')));
@@ -25,6 +30,21 @@ export class Fonzi2Server {
     this.app.use(express.json());
     const secret = crypto.createHash('sha3-256').update(JSON.stringify(this.config)).digest('hex');
     this.app.use(session({ secret, keys: ['user'], maxAge: 24 * 60 * 60 * 1000 }));
+    this.setupControllerRoutes(controllers);
+  }
+
+  private setupControllerRoutes(controllers: ServerController[]) {
+    controllers.forEach((controller) => {
+      controller.setup(this.app, this.client);
+      const routes: RouteDefinitionMetadata[] = getRoutesMetadata(controller);
+      routes.forEach((route) => {
+        this.app[route.requestMethod](
+          route.path,
+          ...(route.middlewares ?? []),
+          route.method.bind(controller)
+        );
+      });
+    });
   }
 
   start() {
@@ -50,8 +70,13 @@ export class Fonzi2Server {
     this.httpServer.listen(this.config.port, this.logServerStatus.bind(this));
   }
 
-  stop() {
-    this.httpServer.close();
+  public async stop() {
+    await new Promise<void>((res, rej) => {
+      this.httpServer.close((err) => {
+        if (err) rej(err);
+        res();
+      });
+    });
   }
 
   protected dashboard(req: Request, res: Response) {
@@ -150,13 +175,12 @@ export class Fonzi2Server {
     return !!session['userInfo'].owner;
   }
 
-  protected logServerStatus() {
+  protected logServerStatus(): void {
     const port = (this.httpServer.address() as AddressInfo).port;
     if (process.env['NODE_ENV'] === 'development') {
       Logger.info(`Server listening on &uhttp://localhost:${port}$`);
+      return;
     }
-    if (process.env['NODE_ENV'] === 'production') {
-      Logger.info(`Server listening on port ${port}`);
-    }
+    Logger.info(`Server listening on port ${port}`);
   }
 }

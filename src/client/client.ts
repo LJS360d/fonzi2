@@ -1,5 +1,5 @@
 import { Client, ClientOptions, Message } from 'discord.js';
-import { Handler } from './base.handler';
+import { DiscordHandler, HandlerType } from './base.handler';
 import { getButtonsMetadata } from './decorators/button.interaction.dec';
 import { getEventsMetadata } from './decorators/client.event.dec';
 import { getCommandsMetadata } from './decorators/command.interaction.dec';
@@ -7,26 +7,26 @@ import { getMessageEventsMetadata } from './decorators/message.dec';
 import { Logger } from '../logger/logger';
 
 export class Fonzi2Client extends Client {
-  constructor(token: string, options: ClientOptions, handlers: Handler[]) {
+  constructor(token: string, options: ClientOptions, handlers: DiscordHandler[]) {
     super(options);
-    const clientEventHandlers: Handler[] = [];
-    const messageEventHandlers: Handler[] = [];
-    const commandInteractionHandlers: Handler[] = [];
-    const buttonInteractionHandlers: Handler[] = [];
+    const clientEventHandlers: DiscordHandler[] = [];
+    const messageEventHandlers: DiscordHandler[] = [];
+    const commandInteractionHandlers: DiscordHandler[] = [];
+    const buttonInteractionHandlers: DiscordHandler[] = [];
     void this.login(token);
     handlers.forEach((handler) => {
       handler.client = this as Client<true>;
       switch (handler.type) {
-        case 'client-event':
+        case HandlerType.clientEvent:
           clientEventHandlers.push(handler);
           break;
-        case 'message-event':
+        case HandlerType.messageEvent:
           messageEventHandlers.push(handler);
           break;
-        case 'command-interaction':
+        case HandlerType.commandInteraction:
           commandInteractionHandlers.push(handler);
           break;
-        case 'button-interaction':
+        case HandlerType.buttonInteraction:
           buttonInteractionHandlers.push(handler);
           break;
       }
@@ -37,7 +37,7 @@ export class Fonzi2Client extends Client {
     this.registerButtonInteractionsHandlers(buttonInteractionHandlers);
   }
 
-  private registerClientEventHandlers(handlers: Handler[]) {
+  private registerClientEventHandlers(handlers: DiscordHandler[]) {
     handlers.forEach((handler) => {
       const clientEvents = getEventsMetadata(handler);
       for (const { event, method } of clientEvents) {
@@ -46,7 +46,7 @@ export class Fonzi2Client extends Client {
     });
   }
 
-  private registerMessageEventHandlers(handlers: Handler[]) {
+  private registerMessageEventHandlers(handlers: DiscordHandler[]) {
     handlers.forEach((handler) => {
       const clientEvents = getMessageEventsMetadata(handler);
       for (const { type, method } of clientEvents) {
@@ -57,7 +57,7 @@ export class Fonzi2Client extends Client {
     });
   }
 
-  private registerCommandInteractionsHandlers(handlers: Handler[]) {
+  private registerCommandInteractionsHandlers(handlers: DiscordHandler[]) {
     handlers.forEach((handler) => {
       this.on('interactionCreate', (interaction) => {
         if (interaction.isChatInputCommand()) {
@@ -75,7 +75,7 @@ export class Fonzi2Client extends Client {
     });
   }
 
-  private registerButtonInteractionsHandlers(handlers: Handler[]) {
+  private registerButtonInteractionsHandlers(handlers: DiscordHandler[]) {
     handlers.forEach((handler) => {
       this.on('interactionCreate', (interaction) => {
         if (interaction.isButton()) {

@@ -1,24 +1,25 @@
 {
-	"compilerOptions": {
-		"target": "ES6",
-		"module": "CommonJS",
-		"outDir": "./build",
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"noEmit": true,
-		"strict": false,
-		"noImplicitAny": false,
-		"strictNullChecks": true,
-		"noImplicitReturns": true,
-		"noPropertyAccessFromIndexSignature": true,
-		"noErrorTruncation": true,
-		"forceConsistentCasingInFileNames": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"isolatedModules": true,
-		"types": ["node", "chai", "vitest"]
-	},
-	"include": ["src/**/*.ts", "src/types/discord.user.info.ts"],
-	"exclude": ["node_modules"]
+ "compilerOptions": {
+  "target": "ES6",
+  "module": "CommonJS",
+  "outDir": "./build",
+  "jsx": "react-jsx",
+  "moduleResolution": "node",
+  "experimentalDecorators": true,
+  "emitDecoratorMetadata": true,
+  "noEmit": true,
+  "strict": false,
+  "noImplicitAny": false,
+  "strictNullChecks": true,
+  "noImplicitReturns": true,
+  "noPropertyAccessFromIndexSignature": true,
+  "noErrorTruncation": true,
+  "forceConsistentCasingInFileNames": true,
+  "skipLibCheck": true,
+  "esModuleInterop": true,
+  "isolatedModules": true,
+  "types": ["node", "chai", "vitest"]
+ },
+ "include": ["src/**/*.ts", "src/types/discord.user.info.ts"],
+ "exclude": ["node_modules"]
 }
