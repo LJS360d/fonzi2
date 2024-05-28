@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.4.2
+
+### Patch Changes
+
+- 63740a9: fix: dashboard render requiring inviteLink
+
 ## 1.4.1
 
 ### Patch Changes
