@@ -14,11 +14,9 @@
     <span id="version">Version:<b>
         <%= version %>
       </b></span>
-    <a class="invite" href="<%=inviteLink%>">
-      <h1><img class="bot-icon round" src="<%=client.user.avatarURL()%>">
-        <%= client.user.tag%>
-      </h1>
-    </a>
+    <h1><img class="bot-icon round" src="<%=client.user.avatarURL()%>">
+      <%= client.user.tag%>
+    </h1>
     <div class="user" style="background-color: <%= userInfo.banner_color %>">
       <img class="user-icon round" src="<%=userInfo.avatar%>" alt="avatar">
       <div>
