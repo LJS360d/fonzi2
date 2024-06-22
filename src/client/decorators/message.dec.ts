@@ -8,7 +8,10 @@ export type MessageEventMetadata = { type: ChannelType; method: Function };
 
 const messageEventsKey = Symbol(HandlerType.messageEvent);
 export function getMessageEventsMetadata(target: any): MessageEventMetadata[] {
-  return Reflect.getOwnMetadata(messageEventsKey, Object.getPrototypeOf(target)) || [];
+  return (
+    Reflect.getOwnMetadata(messageEventsKey, Object.getPrototypeOf(target)) ||
+    []
+  );
 }
 
 export function MessageEvent(type: MessageType): MethodDecorator {

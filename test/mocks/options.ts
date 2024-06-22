@@ -1,55 +1,55 @@
 import {
-	GatewayIntentBits as Intents,
-	type ClientOptions,
-	Partials,
-	ActivityType,
+  GatewayIntentBits as Intents,
+  type ClientOptions,
+  Partials,
+  ActivityType,
 } from 'discord.js';
 import { Logger } from '../../src';
 
 const options: ClientOptions = {
-	// allowedMentions: { parse: ['users', 'roles'] },
-	// closeTimeout: 0,
-	// failIfNotExists: true,
-	// rest: { version: '10' },
+  // allowedMentions: { parse: ['users', 'roles'] },
+  // closeTimeout: 0,
+  // failIfNotExists: true,
+  // rest: { version: '10' },
 
-	intents: [
-		// Intents.AutoModerationConfiguration,
-		// Intents.AutoModerationExecution,
-		// Intents.DirectMessageReactions,
-		Intents.DirectMessageReactions,
-		Intents.DirectMessageTyping,
-		Intents.DirectMessages,
-		// Intents.GuildEmojisAndStickers,
-		// Intents.GuildIntegrations,
-		// Intents.GuildInvites,
-		Intents.GuildMembers,
-		Intents.GuildMessageReactions,
-		Intents.GuildMessageTyping,
-		Intents.GuildMessages,
-		// Intents.GuildModeration,
-		// Intents.GuildPresences,
-		// Intents.GuildScheduledEvents,
-		// Intents.GuildVoiceStates,
-		// Intents.GuildWebhooks,
-		Intents.Guilds,
-		Intents.MessageContent,
-	],
-	partials: [
-		Partials.Channel,
-		Partials.Message,
-		Partials.User,
-		// Partials.GuildMember,
-		// Partials.Reaction,
-	],
-	jsonTransformer: (obj) => {
-		Logger.trace(JSON.stringify(obj, null, 2));
-		return obj;
-	},
-	presence: {
-		activities: [{ name: 'a dumb dev', type: ActivityType.Watching }],
-		afk: false,
-		status: 'online',
-	},
+  intents: [
+    // Intents.AutoModerationConfiguration,
+    // Intents.AutoModerationExecution,
+    // Intents.DirectMessageReactions,
+    Intents.DirectMessageReactions,
+    Intents.DirectMessageTyping,
+    Intents.DirectMessages,
+    // Intents.GuildEmojisAndStickers,
+    // Intents.GuildIntegrations,
+    // Intents.GuildInvites,
+    Intents.GuildMembers,
+    Intents.GuildMessageReactions,
+    Intents.GuildMessageTyping,
+    Intents.GuildMessages,
+    // Intents.GuildModeration,
+    // Intents.GuildPresences,
+    // Intents.GuildScheduledEvents,
+    // Intents.GuildVoiceStates,
+    // Intents.GuildWebhooks,
+    Intents.Guilds,
+    Intents.MessageContent,
+  ],
+  partials: [
+    Partials.Channel,
+    Partials.Message,
+    Partials.User,
+    // Partials.GuildMember,
+    // Partials.Reaction,
+  ],
+  jsonTransformer: (obj) => {
+    Logger.info(JSON.stringify(obj, null, 2));
+    return obj;
+  },
+  presence: {
+    activities: [{ name: 'a dumb dev', type: ActivityType.Watching }],
+    afk: false,
+    status: 'online',
+  },
 };
 
 export default options;

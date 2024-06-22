@@ -3,7 +3,11 @@ import session from 'cookie-session';
 import crypto from 'node:crypto';
 import type { Client } from 'discord.js';
 import 'dotenv/config';
-import express, { type NextFunction, type Request, type Response } from 'express';
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from 'express';
 import http from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { resolve } from 'node:path';
@@ -12,7 +16,10 @@ import { Logger } from '../logger/logger';
 import type { DiscordUserInfo } from '../types/discord.user.info.js';
 import type { ServerController } from './base.controller';
 import { getServerConfig } from './config';
-import { type RouteDefinitionMetadata, getRoutesMetadata } from './decorators/routing.dec';
+import {
+  type RouteDefinitionMetadata,
+  getRoutesMetadata,
+} from './decorators/routing.dec';
 export class Fonzi2Server {
   public readonly startTime = Date.now();
   protected readonly app: express.Application;
@@ -28,8 +35,13 @@ export class Fonzi2Server {
     this.app.set('view engine', 'ejs');
     this.app.set('views', resolve(__dirname, 'views'));
     this.app.use(express.json());
-    const secret = crypto.createHash('sha3-256').update(JSON.stringify(this.config)).digest('hex');
-    this.app.use(session({ secret, keys: ['user'], maxAge: 24 * 60 * 60 * 1000 }));
+    const secret = crypto
+      .createHash('sha3-256')
+      .update(JSON.stringify(this.config))
+      .digest('hex');
+    this.app.use(
+      session({ secret, keys: ['user'], maxAge: 24 * 60 * 60 * 1000 })
+    );
     this.setupControllerRoutes(controllers);
   }
 
@@ -115,7 +127,11 @@ export class Fonzi2Server {
     res.render('default/notfound');
   }
 
-  protected notFoundMiddleware(req: Request, res: Response, next: NextFunction) {
+  protected notFoundMiddleware(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     res.redirect(this.config.notFoundRoute);
     next();
   }
@@ -146,7 +162,9 @@ export class Fonzi2Server {
     const userId = authResponse.data.id;
     const userAvatarHash = authResponse.data.avatar;
     authResponse.data.avatar = `https://cdn.discordapp.com/avatars/${userId}/${userAvatarHash}.png`;
-    authResponse.data.role = this.config.loginData.ownerIds.includes(userId) ? 'owner' : 'user';
+    authResponse.data.role = this.config.loginData.ownerIds.includes(userId)
+      ? 'owner'
+      : 'user';
     return authResponse.data;
   }
 

@@ -1,5 +1,10 @@
-import { ApplicationCommandData } from 'discord.js';
-import { ClientEvent, DiscordHandler, HandlerType, Logger } from '../../../dist';
+import type { ApplicationCommandData } from 'discord.js';
+import {
+  ClientEvent,
+  DiscordHandler,
+  HandlerType,
+  Logger,
+} from '../../../dist';
 import { assert } from 'vitest';
 
 export default class ClientEventsHandler extends DiscordHandler {
@@ -14,14 +19,14 @@ export default class ClientEventsHandler extends DiscordHandler {
     // * Successful login
     Logger.info(`Logged in as ${this.client?.user?.tag}!`);
 
-    const loading = Logger.loading('Started refreshing application (/) commands.');
+    Logger.info('Started refreshing application (/) commands.');
     try {
       await this.client?.application?.commands.set(this.commands);
-      loading.success('Successfully reloaded application (/) commands.');
+      Logger.info('Successfully reloaded application (/) commands.');
       assert.equal(this.client?.user?.displayName, 'Fonzi 2');
       assert.notEqual(this.client?.application?.commands, undefined);
     } catch (err: any) {
-      loading.fail('Failed to reload application (/) commands.');
+      Logger.error('Failed to reload application (/) commands.');
       Logger.error(err);
       assert.equal(false, true);
     }

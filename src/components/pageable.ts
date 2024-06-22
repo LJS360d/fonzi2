@@ -19,7 +19,10 @@ export async function paginateMessage(message: Message, embeds: Embed[]) {
 
   const filter = (reaction: MessageReaction, user: User) =>
     ['⬅️', '➡️'].includes(reaction.emoji.name || '') && !user.bot;
-  const collector = currentPage.createReactionCollector({ filter, time: 60000 });
+  const collector = currentPage.createReactionCollector({
+    filter,
+    time: 60000,
+  });
 
   collector.on('collect', (reaction, user) => {
     reaction.users.remove(user).catch(() => {});
@@ -91,8 +94,14 @@ export async function paginateInteraction(
   const totalPages = embeds.length;
   let row = updateButtons(page, totalPages);
 
-  const addFooterToEmbed = (embed: EmbedBuilder | Embed, page: number, totalPages: number) => {
-    return EmbedBuilder.from(embed).setFooter({ text: `Page ${page + 1} of ${totalPages}` });
+  const addFooterToEmbed = (
+    embed: EmbedBuilder | Embed,
+    page: number,
+    totalPages: number
+  ) => {
+    return EmbedBuilder.from(embed).setFooter({
+      text: `Page ${page + 1} of ${totalPages}`,
+    });
   };
 
   await interaction.reply({
@@ -100,9 +109,13 @@ export async function paginateInteraction(
     components: [row],
   });
 
-  const filter = (i: MessageComponentInteraction) => i.user.id === interaction.user.id;
+  const filter = (i: MessageComponentInteraction) =>
+    i.user.id === interaction.user.id;
   if (!interaction.channel) return;
-  const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
+  const collector = interaction.channel.createMessageComponentCollector({
+    filter,
+    time: 60000,
+  });
 
   collector.on('collect', async (i: MessageComponentInteraction) => {
     switch (i.customId) {

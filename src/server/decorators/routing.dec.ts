@@ -42,7 +42,12 @@ function createRouteDecorator(method: RequestMethod) {
 }
 
 export function getRoutesMetadata(target: any): RouteDefinitionMetadata[] {
-  return Reflect.getOwnMetadata(routeDefinitionsKey, Reflect.getPrototypeOf(target)!) || [];
+  return (
+    Reflect.getOwnMetadata(
+      routeDefinitionsKey,
+      Reflect.getPrototypeOf(target)!
+    ) || []
+  );
 }
 
 export const Get = createRouteDecorator(RequestMethod.GET);

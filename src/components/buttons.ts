@@ -1,5 +1,6 @@
 import { ButtonBuilder, ButtonStyle } from 'discord.js';
 
+// biome-ignore lint/complexity/noStaticOnlyClass: nomenclature
 export class Buttons {
   static confirm(id: string, label?: string) {
     return new ButtonBuilder()

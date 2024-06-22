@@ -7,7 +7,11 @@ import { getMessageEventsMetadata } from './decorators/message.dec';
 import { Logger } from '../logger/logger';
 
 export class Fonzi2Client extends Client {
-  constructor(token: string, options: ClientOptions, handlers: DiscordHandler[]) {
+  constructor(
+    token: string,
+    options: ClientOptions,
+    handlers: DiscordHandler[]
+  ) {
     super(options);
     const clientEventHandlers: DiscordHandler[] = [];
     const messageEventHandlers: DiscordHandler[] = [];
@@ -62,10 +66,12 @@ export class Fonzi2Client extends Client {
       this.on('interactionCreate', (interaction) => {
         if (interaction.isChatInputCommand()) {
           const commands = getCommandsMetadata(handler);
-          const match = commands.find(({ name }) => interaction.commandName === name);
+          const match = commands.find(
+            ({ name }) => interaction.commandName === name
+          );
           if (match) {
             const { method, name } = match;
-            Logger.trace(
+            Logger.info(
               `Received command /${name} from ${interaction.user.username} in ${interaction.guild?.name}`
             );
             method.call(handler, interaction);
@@ -84,7 +90,7 @@ export class Fonzi2Client extends Client {
 
           if (match) {
             const { method, id } = match;
-            Logger.trace(
+            Logger.info(
               `Received button ${id} from ${interaction.user.username} in ${interaction.guild?.name}`
             );
             method.call(handler, interaction);

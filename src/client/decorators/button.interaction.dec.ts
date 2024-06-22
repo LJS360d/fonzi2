@@ -9,7 +9,9 @@ type ButtonInteractionMetadata = {
 const buttonsKey = Symbol(HandlerType.buttonInteraction);
 
 export function getButtonsMetadata(target: any): ButtonInteractionMetadata[] {
-  return Reflect.getOwnMetadata(buttonsKey, Object.getPrototypeOf(target)) || [];
+  return (
+    Reflect.getOwnMetadata(buttonsKey, Object.getPrototypeOf(target)) || []
+  );
 }
 
 // ? @Button decorator

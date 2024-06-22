@@ -1,62 +1,72 @@
 {
- "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
- "organizeImports": {
-  "enabled": false
- },
- "javascript": {
-  "formatter": {
-   "enabled": true,
-   "arrowParentheses": "always",
-   "bracketSpacing": true,
-   "trailingComma": "es5",
-   "bracketSameLine": true,
-   "quoteStyle": "single",
-   "jsxQuoteStyle": "single",
-   "quoteProperties": "asNeeded",
-   "semicolons": "always"
-  }
- },
- "json": {
-  "parser": {
-   "allowComments": true,
-   "allowTrailingCommas": true
-  },
-  "formatter": {
-   "enabled": true,
-   "indentWidth": 1
-  }
- },
- "formatter": {
-  "enabled": true,
-  "formatWithErrors": true,
-  "indentStyle": "space",
-  "indentWidth": 2,
-  "lineWidth": 100,
-  "lineEnding": "lf"
- },
- "linter": {
-  "enabled": true,
-  "rules": {
-   "recommended": true,
-   "style": {
-    "noNonNullAssertion": "off",
-    "noParameterAssign": "off"
-   },
-   "suspicious": {
-    "noArrayIndexKey": "off",
-    "noExplicitAny": "off",
-    "noAsyncPromiseExecutor": "off",
-    "noControlCharactersInRegex": "off"
-   },
-   "complexity": {
-    "useLiteralKeys": "off",
-    "noForEach": "off",
-    "noStaticOnlyClass": "off",
-    "noBannedTypes": "off"
-   },
-   "security": {
-    "recommended": true
-   }
-  }
- }
+	"$schema": "https://biomejs.dev/schemas/1.8.2/schema.json",
+	"organizeImports": {
+		"enabled": false
+	},
+	"javascript": {
+		"formatter": {
+			"enabled": true,
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": true,
+			"quoteStyle": "single",
+			"jsxQuoteStyle": "single",
+			"quoteProperties": "asNeeded",
+			"semicolons": "always",
+			"trailingCommas": "es5",
+			"attributePosition": "auto",
+			"lineWidth": 80,
+			"indentStyle": "space",
+			"indentWidth": 2,
+			"lineEnding": "lf"
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		}
+	},
+	"json": {
+		"parser": {
+			"allowComments": true,
+			"allowTrailingCommas": true
+		},
+		"formatter": {
+			"enabled": true,
+			"indentWidth": 1
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": true,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 80,
+		"lineEnding": "lf"
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"style": {
+				"recommended": true,
+				"noNonNullAssertion": "off",
+				"noParameterAssign": "off",
+				"noUselessElse": "warn"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off",
+				"noExplicitAny": "off"
+			},
+			"complexity": {
+				"useLiteralKeys": "off",
+				"noForEach": "off",
+				"noStaticOnlyClass": "warn",
+				"noBannedTypes": "off",
+				"useSimplifiedLogicExpression": "warn",
+				"noExcessiveCognitiveComplexity": "error"
+			},
+			"security": {
+				"recommended": true
+			}
+		}
+	}
 }

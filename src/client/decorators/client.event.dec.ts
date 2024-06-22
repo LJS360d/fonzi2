@@ -8,7 +8,9 @@ export type ClientEventMetadata = { event: ClientEvent; method: Function };
 
 const clientEventsKey = Symbol(HandlerType.clientEvent);
 export function getEventsMetadata(target: any): ClientEventMetadata[] {
-  return Reflect.getOwnMetadata(clientEventsKey, Object.getPrototypeOf(target)) || [];
+  return (
+    Reflect.getOwnMetadata(clientEventsKey, Object.getPrototypeOf(target)) || []
+  );
 }
 
 export function ClientEvent(event: ClientEvent): MethodDecorator {

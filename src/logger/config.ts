@@ -1,23 +1,26 @@
 import 'dotenv/config';
 import { ConfigLoader } from '../config/config.loader';
+import type {
+  ConsoleTransportOptions,
+  FileTransportOptions,
+} from 'winston/lib/winston/transports';
+import type { DiscordWebhookTransportOptions } from './transport/discord-transport';
+import type { LoggerOptions } from 'winston';
 
 export type LoggerConfig = Readonly<{
-  enabled: boolean;
-  pattern: string;
-  levels: LoggerLevels;
-  remote: {
-    enabled: boolean;
-    webhook?: string;
-    levels: LoggerLevels;
-  };
-  file: {
-    enabled: boolean;
-    path: string;
-    levels: LoggerLevels;
-  };
+  options?: LoggerOptions;
+  console?: ConsoleTransportOptions;
+  remote?: DiscordWebhookTransportOptions;
+  file?: FileTransportOptions;
 }>;
 export type LoggerLevels = 'all' | LoggerLevel[];
-export type LoggerLevel = 'DEBUG' | 'INFO' | 'WARN' | 'ERROR' | 'TRACE' | 'LOAD';
+export type LoggerLevel =
+  | 'ERROR'
+  | 'WARN'
+  | 'INFO'
+  | 'HTTP'
+  | 'DEBUG'
+  | 'SILLY';
 
 export function getLoggerConfig(): LoggerConfig {
   const config = ConfigLoader.loadConfig();

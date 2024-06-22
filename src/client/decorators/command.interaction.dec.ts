@@ -14,7 +14,9 @@ export function getRegisteredCommands(): ApplicationCommandData[] {
 }
 
 export function getCommandsMetadata(target: any): CommandInteractionMetadata[] {
-  return Reflect.getOwnMetadata(commandsKey, Object.getPrototypeOf(target)) || [];
+  return (
+    Reflect.getOwnMetadata(commandsKey, Object.getPrototypeOf(target)) || []
+  );
 }
 
 // ? @Command decorator
