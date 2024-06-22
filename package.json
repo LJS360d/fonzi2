@@ -1,6 +1,6 @@
 {
 	"name": "fonzi2",
-	"version": "1.4.2",
+	"version": "1.5.0",
 	"description": "Discord bot starter kit",
 	"type": "commonjs",
 	"engines": {
@@ -18,7 +18,11 @@
 		"lint": "biome check ./src && tsc",
 		"lint:fix": "biome check --write --unsafe ./src"
 	},
-	"keywords": ["discord", "bot", "typescript"],
+	"keywords": [
+		"discord",
+		"bot",
+		"typescript"
+	],
 	"author": "ljs360d",
 	"license": "MIT",
 	"dependencies": {

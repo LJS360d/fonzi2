@@ -1,5 +1,11 @@
 # fonzi2
 
+## 1.5.0
+
+### Minor Changes
+
+- 99f9486: BREAKING CHANGES: removed proprietary logger, added winston with config support
+
 ## 1.4.2
 
 ### Patch Changes
